@@ -1,11 +1,11 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using WeatherApiApp.Models;
+
 
 namespace WeatherApiApp
 {
@@ -13,7 +13,24 @@ namespace WeatherApiApp
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            IHost host = CreateHostBuilder(args).Build();
+            using (IServiceScope scope = host.Services.CreateScope())
+            {
+                IServiceProvider services = scope.ServiceProvider;
+
+                try
+                {
+                    MunicipioSeedData.Initialize(services);
+                }
+                catch (Exception ex)
+                {
+                    ILogger<Program> logger = services.GetRequiredService<ILogger<Program>>();
+                    logger.LogError(ex, "Erro ao popular tabela Municípios!");
+                    throw;
+                }
+            }
+
+            host.Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
