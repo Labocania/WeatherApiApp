@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
@@ -14,11 +15,14 @@ namespace WeatherApiApp.Pages
     {
         private readonly ILogger<IndexModel> _logger;
         public ApiCaller ApiCaller { get; }
+        public string Key { get; }
+        
 
-        public IndexModel(ILogger<IndexModel> logger, IOptions<ApiCaller> options)
+        public IndexModel(ILogger<IndexModel> logger, IOptions<ApiCaller> options, IConfiguration config)
         {
             _logger = logger;
             ApiCaller = options.Value;
+            Key = config["OpenUVKey"];
         }
 
         public void OnGet()
