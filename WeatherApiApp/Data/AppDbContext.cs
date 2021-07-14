@@ -9,5 +9,7 @@ namespace WeatherApiApp.Data
         public DbSet<Municipio> Municipios { get; set; }
         public DbSet<ReqOpenUV> RequisicoesOpenUV { get; set; }
         public DbSet<ReqOpenW> RequisicoesOpenW { get; set; }
+
+        public DbSet<PrevisaoOpenUV> PrevisoesOpenUV { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WeatherApiApp.Models
@@ -11,6 +12,8 @@ namespace WeatherApiApp.Models
 
         [DataType(DataType.Date)]
         public System.DateTime HorarioRequisicao { get; set; }
+
+        public ICollection<PrevisaoOpenUV> PrevisoesOpenUV { get; set; }
 
     }
 }
