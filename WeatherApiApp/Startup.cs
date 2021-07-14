@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WeatherApiApp.Data;
+using WeatherApiApp.Services;
 
 namespace WeatherApiApp
 {
@@ -26,6 +27,11 @@ namespace WeatherApiApp
             // Adicionando Entity Framework Core com SQL Server.
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
+
+            services.Configure<ApiCaller>(Configuration.GetSection("Url"));
+            ApiCaller settings = new ApiCaller();
+            Configuration.GetSection("Url").Bind(settings);
+            services.AddSingleton(settings);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
