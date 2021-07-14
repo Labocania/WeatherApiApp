@@ -17,5 +17,6 @@ namespace WeatherApiApp.Models
         public byte[] UltimaModificacao { get; set; }
 
         public ICollection<ReqOpenUV> RequisicoesOpenUV { get; set; }
+        public ICollection<ReqOpenW> RequisicoesOpenW { get; set; }
     }
 }
