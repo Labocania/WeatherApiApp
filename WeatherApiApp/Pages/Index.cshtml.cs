@@ -14,15 +14,10 @@ namespace WeatherApiApp.Pages
     public class IndexModel : PageModel
     {
         private readonly ILogger<IndexModel> _logger;
-        public ApiCaller ApiCaller { get; }
-        public string Key { get; }
         
-
-        public IndexModel(ILogger<IndexModel> logger, IOptions<ApiCaller> options, IConfiguration config)
+        public IndexModel(ILogger<IndexModel> logger)
         {
             _logger = logger;
-            ApiCaller = options.Value;
-            Key = config["OpenUVKey"];
         }
 
         public void OnGet()

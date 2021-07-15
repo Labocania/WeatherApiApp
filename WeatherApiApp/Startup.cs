@@ -12,6 +12,8 @@ namespace WeatherApiApp
 {
     public class Startup
     {
+        private string _connectionString = null;
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -24,14 +26,20 @@ namespace WeatherApiApp
         {
             services.AddRazorPages();
 
-            // Adicionando Entity Framework Core com SQL Server.
-            string connectionString = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
+            // Criando texto de conexão ao extrair de segredos.
+            var builder = new Microsoft.Data.SqlClient.SqlConnectionStringBuilder(
+                Configuration.GetConnectionString("DefaultConnection"));
+                //builder.Password = Configuration["DbPassword"];
+            _connectionString = builder.ConnectionString;
 
-            services.Configure<ApiCaller>(Configuration.GetSection("Url"));
-            ApiCaller settings = new ApiCaller();
+            // Adicionando Entity Framework Core com SQL Server.
+            services.AddDbContext<AppDbContext>(options => options.UseSqlServer(_connectionString));
+
+            services.Configure<ApiUrls>(Configuration.GetSection("Url"));
+            ApiUrls settings = new ApiUrls();
             Configuration.GetSection("Url").Bind(settings);
             services.AddSingleton(settings);
+            services.AddSingleton<ApiCaller>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
