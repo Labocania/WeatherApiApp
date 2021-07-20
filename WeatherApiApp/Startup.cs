@@ -35,11 +35,15 @@ namespace WeatherApiApp
             // Adicionando Entity Framework Core com SQL Server.
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(_connectionString));
 
-            services.Configure<ApiUrls>(Configuration.GetSection("Url"));
-            ApiUrls settings = new ApiUrls();
+            services.Configure<ApiUrlBind>(Configuration.GetSection("Url"));
+            ApiUrlBind settings = new ApiUrlBind();
             Configuration.GetSection("Url").Bind(settings);
             services.AddSingleton(settings);
-            services.AddSingleton<ApiCaller>();
+            services.AddScoped<OpenUVUrl>();
+            services.AddScoped<OpenWUrl>();
+            services.AddScoped<ApiCaller>();
+            services.AddScoped<ApiDb>();
+            services.AddScoped<Deserializer>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
