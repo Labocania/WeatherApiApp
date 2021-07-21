@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Polly;
+using Quartz;
 using System;
 using WeatherApiApp.Data;
 using WeatherApiApp.Services;
@@ -62,6 +63,10 @@ namespace WeatherApiApp
                         TimeSpan.FromSeconds(1)
                     }));
 
+            // Registra Quartz na injeção de dependência.
+            services.AddQuartz(q => q.UseMicrosoftDependencyInjectionScopedJobFactory()); // Configura o uso de serviços "Scoped"
+            // Adiciona Quartz.NET IHostedService que executa agendamentos.
+            services.AddQuartzHostedService(q => q.WaitForJobsToComplete = true);
 
             services.AddScoped<Deserializer>();
 
