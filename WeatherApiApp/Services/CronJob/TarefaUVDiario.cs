@@ -11,12 +11,12 @@ namespace WeatherApiApp.Services.CronJob
     public class TarefaUVDiario : CronJobService
     {
         private readonly ApiDb _apiDb;
-        private readonly OpenUVUrl _apiCaller;
+        private readonly ClienteOpenUV _apiCaller;
         private readonly Deserializer _deserializer;
         private readonly List<Municipio> _municipios;
         private readonly ILogger<TarefaUVDiario> _logger;
 
-        public TarefaUVDiario(IScheduleConfig<TarefaUVDiario> configuracao, ApiDb apiDb, OpenUVUrl apiCaller, Deserializer deserializer, ILogger<TarefaUVDiario> logger) 
+        public TarefaUVDiario(IScheduleConfig<TarefaUVDiario> configuracao, ApiDb apiDb, ClienteOpenUV apiCaller, Deserializer deserializer, ILogger<TarefaUVDiario> logger) 
             : base(configuracao.CronExpression, configuracao.TimeZoneInfo)
         {
             _apiDb = apiDb;

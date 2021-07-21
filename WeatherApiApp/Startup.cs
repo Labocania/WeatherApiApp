@@ -42,8 +42,8 @@ namespace WeatherApiApp
             services.AddSingleton(settings);
 
             // Configurando HttpClient para chamada de API
-            services.AddHttpClient<OpenUVUrl>();
-            services.AddHttpClient<OpenWUrl>();
+            services.AddHttpClient<ClienteOpenUV>();
+            services.AddHttpClient<ClienteOpenWeather>();
 
             services.AddScoped<ApiDb>();
             services.AddScoped<Deserializer>();
