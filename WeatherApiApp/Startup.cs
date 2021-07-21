@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Polly;
+using System;
 using WeatherApiApp.Data;
 using WeatherApiApp.Services;
 using WeatherApiApp.Services.CronJob;
@@ -23,6 +25,7 @@ namespace WeatherApiApp
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
+        // * TODO: LIMPAR ESSE MÉTODO! *
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
@@ -33,8 +36,10 @@ namespace WeatherApiApp
                 //builder.Password = Configuration["DbPassword"];
             _connectionString = builder.ConnectionString;
 
-            // Adicionando Entity Framework Core com SQL Server.
+            // Adicionando Entity Framework Core com SQL Server e Interação com serviços API.
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(_connectionString));
+            services.AddScoped<ApiDb>();
+
             // Junta apiurl.json com classe ApiUrlBind para consumo em serviços.
             services.Configure<ApiUrlBind>(Configuration.GetSection("Url"));
             ApiUrlBind settings = new ApiUrlBind();
@@ -42,10 +47,22 @@ namespace WeatherApiApp
             services.AddSingleton(settings);
 
             // Configurando HttpClient para chamada de API
-            services.AddHttpClient<ClienteOpenUV>();
-            services.AddHttpClient<ClienteOpenWeather>();
+            services.AddHttpClient<ClienteOpenUV>()
+                .AddTransientHttpErrorPolicy(policy =>
+                    policy.WaitAndRetryAsync(new[] { 
+                        TimeSpan.FromMinutes(200),
+                        TimeSpan.FromMilliseconds(500),
+                        TimeSpan.FromSeconds(1)
+                    }));
+            services.AddHttpClient<ClienteOpenWeather>()
+                .AddTransientHttpErrorPolicy(policy =>
+                    policy.WaitAndRetryAsync(new[] {
+                        TimeSpan.FromMinutes(200),
+                        TimeSpan.FromMilliseconds(500),
+                        TimeSpan.FromSeconds(1)
+                    }));
 
-            services.AddScoped<ApiDb>();
+
             services.AddScoped<Deserializer>();
 
             services.AddCronJob<TarefaUVDiario>(c =>
