@@ -1,4 +1,6 @@
-﻿using WeatherApiApp.Data;
+﻿using System.Collections.Generic;
+using System.Linq;
+using WeatherApiApp.Data;
 using WeatherApiApp.Models;
 
 namespace WeatherApiApp.Services
@@ -16,9 +18,14 @@ namespace WeatherApiApp.Services
             Municipio municipio = _context.Municipios.Find(id);
             if (municipio == null)
             {
-                throw new System.ArgumentNullException("id");
+                throw new System.ArgumentNullException("Município não encontrado");
             }
             return municipio;
+        }
+
+        public List<Municipio> ObterTodosMunicipios()
+        {
+            return _context.Municipios.ToList();
         }
 
         public void SalvarRequisicaoOpenUV(int municipioId)
@@ -37,6 +44,14 @@ namespace WeatherApiApp.Services
         {
             _context.PrevisoesOpenUV.AddAsync(previsao);
             _context.SaveChangesAsync();
+        }
+
+        public void SalvarListaPrevisaoOpenUV(IList<PrevisaoOpenUV> previsoes)
+        {
+            foreach (PrevisaoOpenUV previsao in previsoes)
+            {
+                SalvarPrevisaoOpenUV(previsao);
+            }
         }
     }
 }

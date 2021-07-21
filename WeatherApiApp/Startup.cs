@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WeatherApiApp.Data;
 using WeatherApiApp.Services;
+using WeatherApiApp.Services.CronJob;
 
 namespace WeatherApiApp
 {
@@ -39,11 +40,18 @@ namespace WeatherApiApp
             ApiUrlBind settings = new ApiUrlBind();
             Configuration.GetSection("Url").Bind(settings);
             services.AddSingleton(settings);
+            services.AddHttpClient();
             services.AddScoped<OpenUVUrl>();
             services.AddScoped<OpenWUrl>();
             services.AddScoped<ApiCaller>();
             services.AddScoped<ApiDb>();
             services.AddScoped<Deserializer>();
+
+            services.AddCronJob<TarefaUVDiario>(c =>
+            {
+                c.TimeZoneInfo = System.TimeZoneInfo.Local;
+                c.CronExpression = @"38 21 * * *";
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
