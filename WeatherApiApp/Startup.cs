@@ -35,15 +35,16 @@ namespace WeatherApiApp
 
             // Adicionando Entity Framework Core com SQL Server.
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(_connectionString));
-
+            // Junta apiurl.json com classe ApiUrlBind para consumo em serviços.
             services.Configure<ApiUrlBind>(Configuration.GetSection("Url"));
             ApiUrlBind settings = new ApiUrlBind();
             Configuration.GetSection("Url").Bind(settings);
             services.AddSingleton(settings);
-            services.AddHttpClient();
-            services.AddScoped<OpenUVUrl>();
-            services.AddScoped<OpenWUrl>();
-            services.AddScoped<ApiCaller>();
+
+            // Configurando HttpClient para chamada de API
+            services.AddHttpClient<OpenUVUrl>();
+            services.AddHttpClient<OpenWUrl>();
+
             services.AddScoped<ApiDb>();
             services.AddScoped<Deserializer>();
 

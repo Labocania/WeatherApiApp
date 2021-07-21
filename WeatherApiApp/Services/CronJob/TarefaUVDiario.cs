@@ -11,12 +11,12 @@ namespace WeatherApiApp.Services.CronJob
     public class TarefaUVDiario : CronJobService
     {
         private readonly ApiDb _apiDb;
-        private readonly ApiCaller _apiCaller;
+        private readonly OpenUVUrl _apiCaller;
         private readonly Deserializer _deserializer;
         private readonly List<Municipio> _municipios;
         private readonly ILogger<TarefaUVDiario> _logger;
 
-        public TarefaUVDiario(IScheduleConfig<TarefaUVDiario> configuracao, ApiDb apiDb, ApiCaller apiCaller, Deserializer deserializer, ILogger<TarefaUVDiario> logger) 
+        public TarefaUVDiario(IScheduleConfig<TarefaUVDiario> configuracao, ApiDb apiDb, OpenUVUrl apiCaller, Deserializer deserializer, ILogger<TarefaUVDiario> logger) 
             : base(configuracao.CronExpression, configuracao.TimeZoneInfo)
         {
             _apiDb = apiDb;
@@ -35,7 +35,7 @@ namespace WeatherApiApp.Services.CronJob
                 foreach (Municipio municipio in _municipios)
                 {
                     int n = 1;
-                    previsaoTexto = _apiCaller.RequisicaoOpenUV(municipio);
+                    previsaoTexto = _apiCaller.ChamarApiAsync(municipio).Result;
                     _logger.LogInformation($"Chamada {n} efetuada");
                     _apiDb.SalvarRequisicaoOpenUV(municipio.ID);
                     _logger.LogInformation($"Requisição salva, Município {municipio.Nome}");
