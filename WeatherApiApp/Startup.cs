@@ -11,6 +11,7 @@ using System;
 using WeatherApiApp.Data;
 using WeatherApiApp.Services;
 using WeatherApiApp.Services.CronJob;
+using WeatherApiApp.Services.Quartz;
 
 namespace WeatherApiApp
 {
@@ -64,7 +65,17 @@ namespace WeatherApiApp
                     }));
 
             // Registra Quartz na injeção de dependência.
-            services.AddQuartz(q => q.UseMicrosoftDependencyInjectionScopedJobFactory()); // Configura o uso de serviços "Scoped"
+            services.AddQuartz(q =>
+            {
+                q.UseMicrosoftDependencyInjectionScopedJobFactory(); // Configura o uso de serviços "Scoped"
+                JobKey chaveTarefa = new JobKey("UV diário OpenUV das capitais"); // Cria nome pra tarefa.
+                q.AddJob<TarefaUVDiario2>(opts => opts.WithIdentity(chaveTarefa)); // Adiciona a tarefa ao "DI container".
+                q.AddTrigger(opts => opts.ForJob(chaveTarefa) // Registra o gatilho que vai ativar a tarefa.
+                                    .WithIdentity("Gatilho" + chaveTarefa) // Adiciona um identificador.
+                                    .StartNow() // Incia o agendamento de tarefas ao início do aplicativo.
+                                    .WithSchedule(CronScheduleBuilder.DailyAtHourAndMinute(21, 30)));
+                                    // Determina o intervalo de execução da tarefa.
+            }); 
             // Adiciona Quartz.NET IHostedService que executa agendamentos.
             services.AddQuartzHostedService(q => q.WaitForJobsToComplete = true);
 
