@@ -1,6 +1,6 @@
 {
   "Url": {
-    "OpenUVUrl": "https://api.openuv.io/api/v1/forecast",
+    "BaseOpenUVUrl": "https://api.openuv.io/api/v1/forecast",
     "BaseOpenWUrl": "https://api.openweathermap.org/data/2.5/onecall?"
   }
 }

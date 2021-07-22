@@ -3,7 +3,7 @@ namespace WeatherApiApp.Services
 {
     public class ApiUrlBind
     {
-        public string BaseOpenUVUrl { get; } = "";
-        public string BaseOpenWUrl { get; } = "";
+        public string BaseOpenUVUrl { get; set; } 
+        public string BaseOpenWUrl { get; set; } 
     }
 }
