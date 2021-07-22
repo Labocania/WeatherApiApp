@@ -10,7 +10,6 @@ using Quartz;
 using System;
 using WeatherApiApp.Data;
 using WeatherApiApp.Services;
-using WeatherApiApp.Services.CronJob;
 using WeatherApiApp.Services.Quartz;
 
 namespace WeatherApiApp
@@ -52,14 +51,14 @@ namespace WeatherApiApp
             services.AddHttpClient<ClienteOpenUV>()
                 .AddTransientHttpErrorPolicy(policy =>
                     policy.WaitAndRetryAsync(new[] { 
-                        TimeSpan.FromMinutes(200),
+                        TimeSpan.FromMilliseconds(200),
                         TimeSpan.FromMilliseconds(500),
                         TimeSpan.FromSeconds(1)
                     }));
             services.AddHttpClient<ClienteOpenWeather>()
                 .AddTransientHttpErrorPolicy(policy =>
                     policy.WaitAndRetryAsync(new[] {
-                        TimeSpan.FromMinutes(200),
+                        TimeSpan.FromMilliseconds(200),
                         TimeSpan.FromMilliseconds(500),
                         TimeSpan.FromSeconds(1)
                     }));
@@ -69,7 +68,7 @@ namespace WeatherApiApp
             {
                 q.UseMicrosoftDependencyInjectionScopedJobFactory(); // Configura o uso de serviços "Scoped"
                 JobKey chaveTarefa = new JobKey("UV diário OpenUV das capitais"); // Cria nome pra tarefa.
-                q.AddJob<TarefaUVDiario2>(opts => opts.WithIdentity(chaveTarefa)); // Adiciona a tarefa ao "DI container".
+                q.AddJob<TarefaUVDiario>(opts => opts.WithIdentity(chaveTarefa)); // Adiciona a tarefa ao "DI container".
                 q.AddTrigger(opts => opts.ForJob(chaveTarefa) // Registra o gatilho que vai ativar a tarefa.
                                     .WithIdentity("Gatilho" + chaveTarefa) // Adiciona um identificador.
                                     .StartNow() // Incia o agendamento de tarefas ao início do aplicativo.
@@ -80,12 +79,6 @@ namespace WeatherApiApp
             services.AddQuartzHostedService(q => q.WaitForJobsToComplete = true);
 
             services.AddScoped<Deserializer>();
-
-            services.AddCronJob<TarefaUVDiario>(c =>
-            {
-                c.TimeZoneInfo = System.TimeZoneInfo.Local;
-                c.CronExpression = @"38 21 * * *";
-            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

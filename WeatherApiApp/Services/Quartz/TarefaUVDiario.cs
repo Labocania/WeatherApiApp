@@ -7,15 +7,15 @@ using WeatherApiApp.Models;
 
 namespace WeatherApiApp.Services.Quartz
 {
-    public class TarefaUVDiario2 : IJob
+    public class TarefaUVDiario : IJob
     {
-        private readonly ILogger<TarefaUVDiario2> _logger;
+        private readonly ILogger<TarefaUVDiario> _logger;
         private readonly ApiDb _apiDb;
         private readonly ClienteOpenUV _apiCaller;
         private readonly Deserializer _deserializer;
         private readonly List<Municipio> _municipios;
 
-        public TarefaUVDiario2(ILogger<TarefaUVDiario2> logger, ApiDb apiDb, ClienteOpenUV apiCaller, Deserializer deserializer)
+        public TarefaUVDiario(ILogger<TarefaUVDiario> logger, ApiDb apiDb, ClienteOpenUV apiCaller, Deserializer deserializer)
         {
             _logger = logger;
             _apiDb = apiDb;
