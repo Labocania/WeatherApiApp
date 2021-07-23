@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WeatherApiApp.Data;
 
 namespace WeatherApiApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210723180654_ModRelacionamentos")]
+    partial class ModRelacionamentos
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -61,17 +63,12 @@ namespace WeatherApiApp.Migrations
                     b.Property<float>("IndiceUV")
                         .HasColumnType("real");
 
-                    b.Property<int?>("MunicipioID")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("RequisicaoOpenUVID")
+                    b.Property<int?>("ReqOpenUVID")
                         .HasColumnType("int");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("MunicipioID");
-
-                    b.HasIndex("RequisicaoOpenUVID");
+                    b.HasIndex("ReqOpenUVID");
 
                     b.ToTable("PrevisoesOpenUV");
                 });
@@ -86,7 +83,12 @@ namespace WeatherApiApp.Migrations
                     b.Property<DateTime>("HorarioRequisicao")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("MunicipioID")
+                        .HasColumnType("int");
+
                     b.HasKey("ID");
+
+                    b.HasIndex("MunicipioID");
 
                     b.ToTable("RequisicoesOpenUV");
                 });
@@ -101,29 +103,42 @@ namespace WeatherApiApp.Migrations
                     b.Property<DateTime>("HorarioRequisicao")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("MunicipioID")
+                        .HasColumnType("int");
+
                     b.HasKey("ID");
+
+                    b.HasIndex("MunicipioID");
 
                     b.ToTable("RequisicoesOpenW");
                 });
 
             modelBuilder.Entity("WeatherApiApp.Models.PrevisaoOpenUV", b =>
                 {
-                    b.HasOne("WeatherApiApp.Models.Municipio", "Municipio")
+                    b.HasOne("WeatherApiApp.Models.ReqOpenUV", null)
                         .WithMany("PrevisoesOpenUV")
+                        .HasForeignKey("ReqOpenUVID");
+                });
+
+            modelBuilder.Entity("WeatherApiApp.Models.ReqOpenUV", b =>
+                {
+                    b.HasOne("WeatherApiApp.Models.Municipio", null)
+                        .WithMany("RequisicoesOpenUV")
                         .HasForeignKey("MunicipioID");
+                });
 
-                    b.HasOne("WeatherApiApp.Models.ReqOpenUV", "RequisicaoOpenUV")
-                        .WithMany("PrevisoesOpenUV")
-                        .HasForeignKey("RequisicaoOpenUVID");
-
-                    b.Navigation("Municipio");
-
-                    b.Navigation("RequisicaoOpenUV");
+            modelBuilder.Entity("WeatherApiApp.Models.ReqOpenW", b =>
+                {
+                    b.HasOne("WeatherApiApp.Models.Municipio", null)
+                        .WithMany("RequisicoesOpenW")
+                        .HasForeignKey("MunicipioID");
                 });
 
             modelBuilder.Entity("WeatherApiApp.Models.Municipio", b =>
                 {
-                    b.Navigation("PrevisoesOpenUV");
+                    b.Navigation("RequisicoesOpenUV");
+
+                    b.Navigation("RequisicoesOpenW");
                 });
 
             modelBuilder.Entity("WeatherApiApp.Models.ReqOpenUV", b =>

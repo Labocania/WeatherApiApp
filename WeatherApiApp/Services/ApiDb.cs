@@ -28,16 +28,12 @@ namespace WeatherApiApp.Services
             return _context.Municipios.ToList();
         }
 
-        public void SalvarRequisicaoOpenUV(int municipioId)
+        public ReqOpenUV SalvarRequisicaoOpenUV(int municipioId)
         {
-            _context.RequisicoesOpenUV.AddAsync(
-                new ReqOpenUV
-                {
-                    HorarioRequisicao = System.DateTime.Now,
-                    MunicipioId = municipioId
-                }
-                );
+            ReqOpenUV requisicao = new ReqOpenUV { HorarioRequisicao = System.DateTime.Now };
+            _context.RequisicoesOpenUV.AddAsync(requisicao);
             _context.SaveChangesAsync();
+            return requisicao;
         }
 
         public void SalvarPrevisaoOpenUV(PrevisaoOpenUV previsao)

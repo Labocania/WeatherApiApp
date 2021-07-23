@@ -2,7 +2,9 @@
 using Quartz;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using WeatherApiApp.Data;
 using WeatherApiApp.Models;
 
 namespace WeatherApiApp.Services.Quartz
@@ -10,34 +12,36 @@ namespace WeatherApiApp.Services.Quartz
     public class TarefaUVDiario : IJob
     {
         private readonly ILogger<TarefaUVDiario> _logger;
-        private readonly ApiDb _apiDb;
+        private readonly AppDbContext _appDb;
         private readonly ClienteOpenUV _apiCaller;
         private readonly Deserializer _deserializer;
         private readonly List<Municipio> _municipios;
 
-        public TarefaUVDiario(ILogger<TarefaUVDiario> logger, ApiDb apiDb, ClienteOpenUV apiCaller, Deserializer deserializer)
+        public TarefaUVDiario(ILogger<TarefaUVDiario> logger, AppDbContext appDb, ClienteOpenUV apiCaller, Deserializer deserializer)
         {
             _logger = logger;
-            _apiDb = apiDb;
+            _appDb = appDb;
             _apiCaller = apiCaller;
             _deserializer = deserializer;
-            _municipios = apiDb.ObterTodosMunicipios();
+            _municipios = _appDb.Municipios.ToList();
         }
 
         public async Task Execute(IJobExecutionContext context)
         {
-            _logger.LogInformation("Iniciando TarefaUVDiario");
+            _logger.LogInformation("Iniciando TarefaUVDiario!");
             string previsaoTexto = "";
-            IList<PrevisaoOpenUV> previsoesOpenUV;
+            ReqOpenUV requisicao;
             try
             {
                 foreach (Municipio municipio in _municipios)
                 {
                     previsaoTexto = await _apiCaller.ChamarApiAsync(municipio);
-                    _apiDb.SalvarRequisicaoOpenUV(municipio.ID);
-                    _logger.LogInformation($"Requisição salva, Município {municipio.Nome}");
-                    previsoesOpenUV = _deserializer.ConverterOpenUV(previsaoTexto);
-                    _apiDb.SalvarListaPrevisaoOpenUV(previsoesOpenUV);
+                    requisicao = new ReqOpenUV { HorarioRequisicao = System.DateTime.Now } ;
+                    requisicao.PrevisoesOpenUV = _deserializer.ConverterOpenUV(previsaoTexto);
+                    await _appDb.RequisicoesOpenUV.AddAsync(requisicao);
+                    _logger.LogInformation($"Requisição adicionada!");
+                    await _appDb.SaveChangesAsync(context.CancellationToken);
+                    _logger.LogInformation($"Requisição salva!");
                 }
             }
             catch (System.Net.Http.HttpRequestException ex) // Erro na chamada API.
