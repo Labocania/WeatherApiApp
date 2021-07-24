@@ -72,10 +72,7 @@ namespace WeatherApiApp
                 q.AddTrigger(opts => opts.ForJob(chaveTarefa) // Registra o gatilho que vai ativar a tarefa.
                                     .WithIdentity("Gatilho" + chaveTarefa) // Adiciona um identificador.
                                     .StartNow() // Incia o agendamento de tarefas ao início do aplicativo.
-                                    .WithSimpleSchedule(x => x
-                                        .WithInterval(TimeSpan.FromMinutes(2))
-                                        .RepeatForever())); // Horário temporário!
-                                    // Determina o intervalo de execução da tarefa.
+                                    .WithSchedule(CronScheduleBuilder.DailyAtHourAndMinute(5, 00))); // Determina o intervalo de execução da tarefa.
             }); 
             // Adiciona Quartz.NET IHostedService que executa agendamentos.
             services.AddQuartzHostedService(q => q.WaitForJobsToComplete = true);

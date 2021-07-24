@@ -38,6 +38,10 @@ namespace WeatherApiApp.Services.Quartz
                     previsaoTexto = await _apiCaller.ChamarApiAsync(municipio);
                     requisicao = new ReqOpenUV { HorarioRequisicao = System.DateTime.Now } ;
                     requisicao.PrevisoesOpenUV = _deserializer.ConverterOpenUV(previsaoTexto);
+                    foreach (PrevisaoOpenUV previsao in requisicao.PrevisoesOpenUV)
+                    {
+                        previsao.Municipio = municipio;
+                    }
                     await _appDb.RequisicoesOpenUV.AddAsync(requisicao);
                     _logger.LogInformation($"Requisição adicionada!");
                     await _appDb.SaveChangesAsync(context.CancellationToken);
