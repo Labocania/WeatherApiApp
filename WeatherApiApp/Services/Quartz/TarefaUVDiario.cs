@@ -30,22 +30,20 @@ namespace WeatherApiApp.Services.Quartz
         {
             _logger.LogInformation("Iniciando TarefaUVDiario!");
             string previsaoTexto = "";
-            ReqOpenUV requisicao;
             try
             {
                 foreach (Municipio municipio in _municipios)
                 {
+                    _logger.LogInformation($"Obtendo previsão para o município: {municipio.Nome}.");
                     previsaoTexto = await _apiCaller.ChamarApiAsync(municipio);
-                    requisicao = new ReqOpenUV { HorarioRequisicao = System.DateTime.Now } ;
-                    requisicao.PrevisoesOpenUV = _deserializer.ConverterOpenUV(previsaoTexto);
-                    foreach (PrevisaoOpenUV previsao in requisicao.PrevisoesOpenUV)
+                    municipio.PrevisoesOpenUV = _deserializer.ConverterOpenUV(previsaoTexto);
+                    foreach (PrevisaoOpenUV previsao in municipio.PrevisoesOpenUV)
                     {
-                        previsao.Municipio = municipio;
+                        await _appDb.PrevisoesOpenUV.AddAsync(previsao);
                     }
-                    await _appDb.RequisicoesOpenUV.AddAsync(requisicao);
-                    _logger.LogInformation($"Requisição adicionada!");
+                    _logger.LogInformation($"Previsão adicionada!");
                     await _appDb.SaveChangesAsync(context.CancellationToken);
-                    _logger.LogInformation($"Requisição salva!");
+                    _logger.LogInformation($"Previsão salva!");
                 }
             }
             catch (System.Net.Http.HttpRequestException ex) // Erro na chamada API.
