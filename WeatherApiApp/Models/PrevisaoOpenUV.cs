@@ -16,7 +16,6 @@ namespace WeatherApiApp.Models
         public System.DateTime Horario { get; set; }
 
         public Municipio Municipio { get; set; }
-        public ReqOpenUV RequisicaoOpenUV { get; set; }
 
     }
 }
