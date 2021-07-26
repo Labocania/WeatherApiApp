@@ -29,7 +29,7 @@ namespace WeatherApiApp.Services
 
         public string CriaUrl(float latitude, float longitude, float altitude = 0, string exlcuir = "")
         {
-            return $"lat={latitude}&lon={longitude}&exclude={exlcuir}&appid={_config["OpenWKey"]}";
+            return $"onecall?lat={latitude}&lon={longitude}&exclude={exlcuir}&appid={_config["OpenWKey"]}";
         }
     }
 }
