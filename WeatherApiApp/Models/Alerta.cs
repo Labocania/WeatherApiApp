@@ -10,8 +10,6 @@ namespace WeatherApiApp.Models
     public class Alerta
     {
         public int ID { get; set; }
-        public int PrevisaoOpenWId { get; set; }
-        public PrevisaoDiariaOpenW PrevisaoOpenW { get; set; }
 
         [DataMember(Name = "sender_name")]
         public string AlertaFonte { get; set; }
@@ -31,5 +29,7 @@ namespace WeatherApiApp.Models
 
         [DataMember(Name = "description")]
         public string Descricao { get; set; }
+
+        public PrevisaoDiariaOpenW PrevisaoOpenW { get; set; }
     }
 }

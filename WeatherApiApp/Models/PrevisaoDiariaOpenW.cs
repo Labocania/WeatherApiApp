@@ -66,7 +66,7 @@ namespace WeatherApiApp.Models
         public float Neve { get; set; }
 
         [DataMember(Name = "alerts")]
-        public Alerta Alerta { get; set; }
+        public ICollection<Alerta> Alertas { get; set; }
         public Municipio Municipio { get; set; }
     }
 }
