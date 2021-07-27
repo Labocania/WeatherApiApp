@@ -14,5 +14,9 @@ namespace WeatherApiApp.Data
         public DbSet<Condicao> Condicoes { get; set; }
 
         public DbSet<Alerta> Alertas { get; set; }
+
+        public DbSet<SensacaoTermica> Sensacoes { get; set; }
+
+        public DbSet<Temperatura> Temperaturas { get; set; }
     }
 }
