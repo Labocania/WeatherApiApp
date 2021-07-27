@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using WeatherApiApp.Models;
 
@@ -9,7 +7,6 @@ namespace WeatherApiApp.Services
     public class Deserializer
     {
         public JObject RespostaTotalObjeto { get; private set; }
-        private IList<JToken> resultadoParcial;
 
         private void ConverterResultados(string respostaTexto)
         {
@@ -19,16 +16,23 @@ namespace WeatherApiApp.Services
         public IList<PrevisaoOpenUV> ConverterOpenUV(string respostaJson)
         {
             ConverterResultados(respostaJson);
-            resultadoParcial = RespostaTotalObjeto.SelectTokens("result").Children().ToList();
+            return RespostaTotalObjeto.SelectToken("result").ToObject<IList<PrevisaoOpenUV>>();
+        }
+
+        public PrevisaoDiariaOpenW ConverterDiariaOpenW(string respostaJson)
+        {
+            ConverterResultados(respostaJson);
+            return RespostaTotalObjeto.ToObject<PrevisaoDiariaOpenW>();
+        }
+
+        /*  Implementação antiga de ConverterOpenUV
+         *  IList<JToken> resultadoParcial = RespostaTotalObjeto.SelectTokens("result").Children().ToList();
             IList<PrevisaoOpenUV> resultadoFinal = new List<PrevisaoOpenUV>();
             foreach (JToken resultado in resultadoParcial)
             {
                 resultadoFinal.Add(resultado.ToObject<PrevisaoOpenUV>());
             }
 
-            return resultadoFinal;
-        }
-
-        //public IList<PrevisaoOpenW> ConverterOpenW(string respostaJson)
+            return resultadoFinal;*/
     }
 }
