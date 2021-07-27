@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json.Converters;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
 
 namespace WeatherApiApp.Models
 {
@@ -11,49 +13,28 @@ namespace WeatherApiApp.Models
         public int ID { get; set; }
 
         [DataMember(Name = "dt")]
+        [JsonConverter(typeof(UnixDateTimeConverter))]
         [DataType(DataType.Date)]
         public System.DateTime DataPrevisao { get; set; }
 
         [DataMember(Name = "sunrise")]
+        [JsonConverter(typeof(UnixDateTimeConverter))]
         [DataType(DataType.Date)]
         public System.DateTime DataAmanhecer { get; set; }
 
         [DataMember(Name = "sunset")]
+        [JsonConverter(typeof(UnixDateTimeConverter))]
         [DataType(DataType.Date)]
         public System.DateTime DataEntardecer { get; set; }
 
         [DataMember(Name = "moon_phase")]
         public float FaseLunar { get; set; }
 
-        [DataMember(Name = "day")]
-        public float TempDiaria { get; set; }
+        [DataMember(Name = "temp")]
+        public Temperatura Temperatura { get; set; }
 
-        [DataMember(Name = "morn")]
-        public float TempManha { get; set; }
-
-        [DataMember(Name = "eve")]
-        public float TempEntardecer { get; set; }
-
-        [DataMember(Name = "night")]
-        public float TempNoite { get; set; }
-
-        [DataMember(Name = "min")]
-        public float TempMin { get; set; }
-
-        [DataMember(Name = "max")]
-        public float TempMax { get; set; }
-
-        [DataMember(Name = "day")]
-        public float SensDiaria { get; set; }
-
-        [DataMember(Name = "morn")]
-        public float SensManha { get; set; }
-
-        [DataMember(Name = "eve")]
-        public float SensEntardecer { get; set; }
-
-        [DataMember(Name = "night")]
-        public float SensNoite { get; set; }
+        [DataMember(Name = "feels_like")]
+        public SensacaoTermica SensacaoTermica { get; set; }
 
         [DataMember(Name = "pressure")]
         public float Pressao { get; set; }
@@ -63,6 +44,9 @@ namespace WeatherApiApp.Models
 
         [DataMember(Name = "dew_point")]
         public float PontoOrvalho { get; set; }
+
+        [DataMember(Name = "weather")]
+        public ICollection<Condicao> Condicoes { get; set; }
 
         [DataMember(Name = "clouds")]
         public int CoberturaNuvem { get; set; } // %
@@ -81,10 +65,8 @@ namespace WeatherApiApp.Models
         [DefaultValue(0.0f)]
         public float Neve { get; set; }
 
-        public Municipio Municipio { get; set; }
-
-        public ICollection<Condicao> Condicoes { get; set; }
-
+        [DataMember(Name = "alerts")]
         public Alerta Alerta { get; set; }
+        public Municipio Municipio { get; set; }
     }
 }

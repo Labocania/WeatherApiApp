@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Newtonsoft.Json.Converters;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
 
 namespace WeatherApiApp.Models
 {
@@ -18,10 +20,12 @@ namespace WeatherApiApp.Models
         public string Evento { get; set; }
 
         [DataMember(Name = "start")]
+        [JsonConverter(typeof(UnixDateTimeConverter))]
         [DataType(DataType.Date)]
         public DateTime DataInicio { get; set; }
 
         [DataMember(Name = "end")]
+        [JsonConverter(typeof(UnixDateTimeConverter))]
         [DataType(DataType.Date)]
         public DateTime DataTermino { get; set; }
 
