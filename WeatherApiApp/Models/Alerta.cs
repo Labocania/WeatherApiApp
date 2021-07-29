@@ -18,12 +18,12 @@ namespace WeatherApiApp.Models
         public string Evento { get; set; }
 
         [DataMember(Name = "start")]
-        [JsonConverter(typeof(UnixDateTimeConverter))]
         [DataType(DataType.Date)]
+        [Newtonsoft.Json.JsonConverter(typeof(UnixDateTimeConverter))]
         public DateTime DataInicio { get; set; }
 
         [DataMember(Name = "end")]
-        [JsonConverter(typeof(UnixDateTimeConverter))]
+        [Newtonsoft.Json.JsonConverter(typeof(UnixDateTimeConverter))]
         [DataType(DataType.Date)]
         public DateTime DataTermino { get; set; }
 

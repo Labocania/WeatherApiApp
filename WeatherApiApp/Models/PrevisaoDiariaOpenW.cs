@@ -13,17 +13,17 @@ namespace WeatherApiApp.Models
         public int ID { get; set; }
 
         [DataMember(Name = "dt")]
-        [JsonConverter(typeof(UnixDateTimeConverter))]
+        [Newtonsoft.Json.JsonConverter(typeof(UnixDateTimeConverter))]
         [DataType(DataType.Date)]
         public System.DateTime DataPrevisao { get; set; }
 
         [DataMember(Name = "sunrise")]
-        [JsonConverter(typeof(UnixDateTimeConverter))]
+        [Newtonsoft.Json.JsonConverter(typeof(UnixDateTimeConverter))]
         [DataType(DataType.Date)]
         public System.DateTime DataAmanhecer { get; set; }
 
         [DataMember(Name = "sunset")]
-        [JsonConverter(typeof(UnixDateTimeConverter))]
+        [Newtonsoft.Json.JsonConverter(typeof(UnixDateTimeConverter))]
         [DataType(DataType.Date)]
         public System.DateTime DataEntardecer { get; set; }
 
