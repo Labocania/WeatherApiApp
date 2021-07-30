@@ -40,7 +40,7 @@ namespace WeatherApiApp.Models
         public float Pressao { get; set; }
 
         [DataMember(Name = "humidity")]
-        public int Humidade { get; set; } // %
+        public float Humidade { get; set; } // %
 
         [DataMember(Name = "dew_point")]
         public float PontoOrvalho { get; set; }
@@ -49,13 +49,13 @@ namespace WeatherApiApp.Models
         public ICollection<Condicao> Condicoes { get; set; }
 
         [DataMember(Name = "clouds")]
-        public int CoberturaNuvem { get; set; } // %
+        public float CoberturaNuvem { get; set; } // %
 
         [DataMember(Name = "uvi")]
         public float IndiceUV { get; set; }
 
         [DataMember(Name = "pop")]
-        public int ProbPrecipitacao { get; set; }
+        public float ProbPrecipitacao { get; set; }
 
         [DataMember(Name = "rain")]
         [DefaultValue(0.0f)]
