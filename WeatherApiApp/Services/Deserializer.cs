@@ -22,7 +22,17 @@ namespace WeatherApiApp.Services
         public PrevisaoDiariaOpenW ConverterDiariaOpenW(string respostaJson)
         {
             ConverterResultados(respostaJson);
-            return RespostaTotalObjeto.ToObject<PrevisaoDiariaOpenW>();
+            PrevisaoDiariaOpenW previsao = RespostaTotalObjeto["daily"][0].ToObject<PrevisaoDiariaOpenW>();
+            if (RespostaTotalObjeto["alerts"] != null)
+            {
+                List<Alerta> alertas = new List<Alerta>();
+                foreach (var alerta in RespostaTotalObjeto["alerts"])
+                {
+                    alertas.Add(alerta.ToObject<Alerta>());
+                }
+                previsao.Alertas = alertas;
+            }            
+            return previsao;
         }
 
         /*  Implementação antiga de ConverterOpenUV
