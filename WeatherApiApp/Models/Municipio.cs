@@ -15,6 +15,6 @@ namespace WeatherApiApp.Models
         public byte[] UltimaModificacao { get; set; }
 
         public ICollection<PrevisaoOpenUV> PrevisoesOpenUV { get; set; }
-        //public ICollection<PrevisaoOpenW> PrevisoesOpenW { get; set; }
+        public ICollection<PrevisaoDiariaOpenW> PrevisoesDiariasOpenW { get; set; }
     }
 }

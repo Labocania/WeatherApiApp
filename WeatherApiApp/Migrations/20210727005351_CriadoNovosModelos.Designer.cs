@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WeatherApiApp.Data;
 
 namespace WeatherApiApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210727005351_CriadoNovosModelos")]
+    partial class CriadoNovosModelos
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -41,12 +43,13 @@ namespace WeatherApiApp.Migrations
                     b.Property<string>("Evento")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("PrevisaoOpenWID")
+                    b.Property<int>("PrevisaoOpenWId")
                         .HasColumnType("int");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("PrevisaoOpenWID");
+                    b.HasIndex("PrevisaoOpenWId")
+                        .IsUnique();
 
                     b.ToTable("Alertas");
                 });
@@ -209,7 +212,7 @@ namespace WeatherApiApp.Migrations
                     b.HasIndex("PrevisaoOpenWId")
                         .IsUnique();
 
-                    b.ToTable("Sensacoes");
+                    b.ToTable("SensacaoTermica");
                 });
 
             modelBuilder.Entity("WeatherApiApp.Models.Temperatura", b =>
@@ -245,14 +248,16 @@ namespace WeatherApiApp.Migrations
                     b.HasIndex("PrevisaoOpenWId")
                         .IsUnique();
 
-                    b.ToTable("Temperaturas");
+                    b.ToTable("Temperatura");
                 });
 
             modelBuilder.Entity("WeatherApiApp.Models.Alerta", b =>
                 {
                     b.HasOne("WeatherApiApp.Models.PrevisaoDiariaOpenW", "PrevisaoOpenW")
-                        .WithMany("Alertas")
-                        .HasForeignKey("PrevisaoOpenWID");
+                        .WithOne("Alerta")
+                        .HasForeignKey("WeatherApiApp.Models.Alerta", "PrevisaoOpenWId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("PrevisaoOpenW");
                 });
@@ -315,7 +320,7 @@ namespace WeatherApiApp.Migrations
 
             modelBuilder.Entity("WeatherApiApp.Models.PrevisaoDiariaOpenW", b =>
                 {
-                    b.Navigation("Alertas");
+                    b.Navigation("Alerta");
 
                     b.Navigation("Condicoes");
 

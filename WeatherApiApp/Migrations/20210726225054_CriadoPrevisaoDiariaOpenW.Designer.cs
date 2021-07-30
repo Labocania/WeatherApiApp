@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WeatherApiApp.Data;
 
 namespace WeatherApiApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210726225054_CriadoPrevisaoDiariaOpenW")]
+    partial class CriadoPrevisaoDiariaOpenW
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -41,12 +43,13 @@ namespace WeatherApiApp.Migrations
                     b.Property<string>("Evento")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("PrevisaoOpenWID")
+                    b.Property<int>("PrevisaoOpenWId")
                         .HasColumnType("int");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("PrevisaoOpenWID");
+                    b.HasIndex("PrevisaoOpenWId")
+                        .IsUnique();
 
                     b.ToTable("Alertas");
                 });
@@ -152,6 +155,36 @@ namespace WeatherApiApp.Migrations
                     b.Property<int>("ProbPrecipitacao")
                         .HasColumnType("int");
 
+                    b.Property<float>("SensDiaria")
+                        .HasColumnType("real");
+
+                    b.Property<float>("SensEntardecer")
+                        .HasColumnType("real");
+
+                    b.Property<float>("SensManha")
+                        .HasColumnType("real");
+
+                    b.Property<float>("SensNoite")
+                        .HasColumnType("real");
+
+                    b.Property<float>("TempDiaria")
+                        .HasColumnType("real");
+
+                    b.Property<float>("TempEntardecer")
+                        .HasColumnType("real");
+
+                    b.Property<float>("TempManha")
+                        .HasColumnType("real");
+
+                    b.Property<float>("TempMax")
+                        .HasColumnType("real");
+
+                    b.Property<float>("TempMin")
+                        .HasColumnType("real");
+
+                    b.Property<float>("TempNoite")
+                        .HasColumnType("real");
+
                     b.HasKey("ID");
 
                     b.HasIndex("MunicipioID");
@@ -182,77 +215,13 @@ namespace WeatherApiApp.Migrations
                     b.ToTable("PrevisoesOpenUV");
                 });
 
-            modelBuilder.Entity("WeatherApiApp.Models.SensacaoTermica", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("PrevisaoOpenWId")
-                        .HasColumnType("int");
-
-                    b.Property<float>("SensDiaria")
-                        .HasColumnType("real");
-
-                    b.Property<float>("SensEntardecer")
-                        .HasColumnType("real");
-
-                    b.Property<float>("SensManha")
-                        .HasColumnType("real");
-
-                    b.Property<float>("SensNoite")
-                        .HasColumnType("real");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("PrevisaoOpenWId")
-                        .IsUnique();
-
-                    b.ToTable("Sensacoes");
-                });
-
-            modelBuilder.Entity("WeatherApiApp.Models.Temperatura", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("PrevisaoOpenWId")
-                        .HasColumnType("int");
-
-                    b.Property<float>("TempDiaria")
-                        .HasColumnType("real");
-
-                    b.Property<float>("TempEntardecer")
-                        .HasColumnType("real");
-
-                    b.Property<float>("TempManha")
-                        .HasColumnType("real");
-
-                    b.Property<float>("TempMax")
-                        .HasColumnType("real");
-
-                    b.Property<float>("TempMin")
-                        .HasColumnType("real");
-
-                    b.Property<float>("TempNoite")
-                        .HasColumnType("real");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("PrevisaoOpenWId")
-                        .IsUnique();
-
-                    b.ToTable("Temperaturas");
-                });
-
             modelBuilder.Entity("WeatherApiApp.Models.Alerta", b =>
                 {
                     b.HasOne("WeatherApiApp.Models.PrevisaoDiariaOpenW", "PrevisaoOpenW")
-                        .WithMany("Alertas")
-                        .HasForeignKey("PrevisaoOpenWID");
+                        .WithOne("Alerta")
+                        .HasForeignKey("WeatherApiApp.Models.Alerta", "PrevisaoOpenWId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("PrevisaoOpenW");
                 });
@@ -284,28 +253,6 @@ namespace WeatherApiApp.Migrations
                     b.Navigation("Municipio");
                 });
 
-            modelBuilder.Entity("WeatherApiApp.Models.SensacaoTermica", b =>
-                {
-                    b.HasOne("WeatherApiApp.Models.PrevisaoDiariaOpenW", "PrevisaoOpenW")
-                        .WithOne("SensacaoTermica")
-                        .HasForeignKey("WeatherApiApp.Models.SensacaoTermica", "PrevisaoOpenWId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("PrevisaoOpenW");
-                });
-
-            modelBuilder.Entity("WeatherApiApp.Models.Temperatura", b =>
-                {
-                    b.HasOne("WeatherApiApp.Models.PrevisaoDiariaOpenW", "PrevisaoOpenW")
-                        .WithOne("Temperatura")
-                        .HasForeignKey("WeatherApiApp.Models.Temperatura", "PrevisaoOpenWId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("PrevisaoOpenW");
-                });
-
             modelBuilder.Entity("WeatherApiApp.Models.Municipio", b =>
                 {
                     b.Navigation("PrevisoesDiariasOpenW");
@@ -315,13 +262,9 @@ namespace WeatherApiApp.Migrations
 
             modelBuilder.Entity("WeatherApiApp.Models.PrevisaoDiariaOpenW", b =>
                 {
-                    b.Navigation("Alertas");
+                    b.Navigation("Alerta");
 
                     b.Navigation("Condicoes");
-
-                    b.Navigation("SensacaoTermica");
-
-                    b.Navigation("Temperatura");
                 });
 #pragma warning restore 612, 618
         }
