@@ -11,6 +11,8 @@ namespace WeatherApiApp.Data
 
         public DbSet<PrevisaoDiariaOpenW> PrevisoesDiariasOpenW { get; set; }
 
+        public DbSet<ClimaAtualOpenW> ClimasAtuaisOpenW { get; set; }
+
         public DbSet<Condicao> Condicoes { get; set; }
 
         public DbSet<Alerta> Alertas { get; set; }

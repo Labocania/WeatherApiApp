@@ -2,7 +2,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
-using System.Text.Json.Serialization;
 
 namespace WeatherApiApp.Models
 {
@@ -10,6 +9,8 @@ namespace WeatherApiApp.Models
     public class Alerta
     {
         public int ID { get; set; }
+
+        public PrevisaoDiariaOpenW PrevisaoOpenW { get; set; }
 
         [DataMember(Name = "sender_name")]
         public string AlertaFonte { get; set; }
@@ -29,7 +30,5 @@ namespace WeatherApiApp.Models
 
         [DataMember(Name = "description")]
         public string Descricao { get; set; }
-
-        public PrevisaoDiariaOpenW PrevisaoOpenW { get; set; }
     }
 }

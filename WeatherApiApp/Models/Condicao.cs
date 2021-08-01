@@ -6,6 +6,8 @@ namespace WeatherApiApp.Models
     public class Condicao
     {
         public int ID { get; set; }
+        public PrevisaoDiariaOpenW PrevisaoOpenW { get; set; }
+        public ClimaAtualOpenW ClimaAtualOpenW { get; set; }
 
         [DataMember(Name = "main")]
         public string Principal { get; set; }
@@ -15,7 +17,5 @@ namespace WeatherApiApp.Models
 
         [DataMember(Name = "icon")]
         public string Icone { get; set; }
-
-        public PrevisaoDiariaOpenW PrevisaoOpenW { get; set; }
     }
 }
