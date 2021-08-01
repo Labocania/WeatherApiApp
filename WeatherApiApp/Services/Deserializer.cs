@@ -38,7 +38,7 @@ namespace WeatherApiApp.Services
         public ClimaAtualOpenW ConverterClimaAtual(string respostaJson)
         {
             ConverterResultados(respostaJson);
-            return RespostaTotalObjeto.ToObject<ClimaAtualOpenW>();
+            return RespostaTotalObjeto["current"].ToObject<ClimaAtualOpenW>();
         }
 
         /*  Implementação antiga de ConverterOpenUV
