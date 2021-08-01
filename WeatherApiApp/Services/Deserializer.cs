@@ -35,6 +35,12 @@ namespace WeatherApiApp.Services
             return previsao;
         }
 
+        public ClimaAtualOpenW ConverterClimaAtual(string respostaJson)
+        {
+            ConverterResultados(respostaJson);
+            return RespostaTotalObjeto.ToObject<ClimaAtualOpenW>();
+        }
+
         /*  Implementação antiga de ConverterOpenUV
          *  IList<JToken> resultadoParcial = RespostaTotalObjeto.SelectTokens("result").Children().ToList();
             IList<PrevisaoOpenUV> resultadoFinal = new List<PrevisaoOpenUV>();
