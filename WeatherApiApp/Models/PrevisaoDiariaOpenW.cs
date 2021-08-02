@@ -1,70 +1,72 @@
-﻿using Newtonsoft.Json.Converters;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
 
 namespace WeatherApiApp.Models
 {
     [DataContract]
     public class PrevisaoDiariaOpenW
     {
+        [JsonIgnore]
         public int ID { get; set; }
+        [JsonIgnore]
         public Municipio Municipio { get; set; }
 
-        [DataMember(Name = "alerts")]
+        [JsonPropertyName("alerts")]
         public ICollection<Alerta> Alertas { get; set; }
 
-        [DataMember(Name = "temp")]
+        [JsonPropertyName("temp")]
         public Temperatura Temperatura { get; set; }
 
-        [DataMember(Name = "feels_like")]
+        [JsonPropertyName("feels_like")]
         public SensacaoTermica SensacaoTermica { get; set; }
 
-        [DataMember(Name = "weather")]
+        [JsonPropertyName("weather")]
         public ICollection<Condicao> Condicoes { get; set; }
 
-        [DataMember(Name = "dt")]
-        [Newtonsoft.Json.JsonConverter(typeof(UnixDateTimeConverter))]
+        [JsonPropertyName("dt")]
+        [JsonConverter(typeof(UnixEpochDateTimeConverter))]
         [DataType(DataType.Date)]
         public System.DateTime DataPrevisao { get; set; }
 
-        [DataMember(Name = "sunrise")]
-        [Newtonsoft.Json.JsonConverter(typeof(UnixDateTimeConverter))]
+        [JsonPropertyName("sunrise")]
+        [JsonConverter(typeof(UnixEpochDateTimeConverter))]
         [DataType(DataType.Date)]
         public System.DateTime DataAmanhecer { get; set; }
 
-        [DataMember(Name = "sunset")]
-        [Newtonsoft.Json.JsonConverter(typeof(UnixDateTimeConverter))]
+        [JsonPropertyName("sunset")]
+        [JsonConverter(typeof(UnixEpochDateTimeConverter))]
         [DataType(DataType.Date)]
         public System.DateTime DataEntardecer { get; set; }
 
-        [DataMember(Name = "moon_phase")]
+        [JsonPropertyName("moon_phase")]
         public float FaseLunar { get; set; }
 
-        [DataMember(Name = "pressure")]
+        [JsonPropertyName("pressure")]
         public float Pressao { get; set; }
 
-        [DataMember(Name = "humidity")]
-        public float Humidade { get; set; } // %
+        [JsonPropertyName("humidity")]
+        public float Humidade { get; set; } 
 
-        [DataMember(Name = "dew_point")]
+        [JsonPropertyName("dew_point")]
         public float PontoOrvalho { get; set; }
 
-        [DataMember(Name = "clouds")]
-        public float CoberturaNuvem { get; set; } // %
+        [JsonPropertyName("clouds")]
+        public float CoberturaNuvem { get; set; } 
 
-        [DataMember(Name = "uvi")]
+        [JsonPropertyName("uvi")]
         public float IndiceUV { get; set; }
 
-        [DataMember(Name = "pop")]
+        [JsonPropertyName("pop")]
         public float ProbPrecipitacao { get; set; }
 
-        [DataMember(Name = "rain")]
+        [JsonPropertyName("rain")]
         [DefaultValue(0.0f)]
         public float Precipitacao { get; set; }
 
-        [DataMember(Name = "snow")]
+        [JsonPropertyName("snow")]
         [DefaultValue(0.0f)]
         public float Neve { get; set; }
     }

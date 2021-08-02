@@ -1,24 +1,28 @@
 ﻿using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
 
 namespace WeatherApiApp.Models
 {
     [DataContract]
     public class SensacaoTermica
     {
+        [JsonIgnore]
         public int ID { get; set; }
+        [JsonIgnore]
         public int PrevisaoOpenWId { get; set; }
+        [JsonIgnore]
         public PrevisaoDiariaOpenW PrevisaoOpenW { get; set; }
 
-        [DataMember(Name = "day")]
+        [JsonPropertyName("day")]
         public float SensDiaria { get; set; }
 
-        [DataMember(Name = "morn")]
+        [JsonPropertyName("morn")]
         public float SensManha { get; set; }
 
-        [DataMember(Name = "eve")]
+        [JsonPropertyName("eve")]
         public float SensEntardecer { get; set; }
 
-        [DataMember(Name = "night")]
+        [JsonPropertyName("night")]
         public float SensNoite { get; set; }
     }
 }

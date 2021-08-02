@@ -1,30 +1,34 @@
 ﻿using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
 
 namespace WeatherApiApp.Models
 {
     [DataContract]
     public class Temperatura
     {
+        [JsonIgnore]
         public int ID { get; set; }
+        [JsonIgnore]
         public int PrevisaoOpenWId { get; set; }
+        [JsonIgnore]
         public PrevisaoDiariaOpenW PrevisaoOpenW { get; set; }
 
-        [DataMember(Name = "day")]
+        [JsonPropertyName("day")]
         public float TempDiaria { get; set; }
 
-        [DataMember(Name = "morn")]
+        [JsonPropertyName("morn")]
         public float TempManha { get; set; }
 
-        [DataMember(Name = "eve")]
+        [JsonPropertyName("eve")]
         public float TempEntardecer { get; set; }
 
-        [DataMember(Name = "night")]
+        [JsonPropertyName("night")]
         public float TempNoite { get; set; }
 
-        [DataMember(Name = "min")]
+        [JsonPropertyName("min")]
         public float TempMin { get; set; }
 
-        [DataMember(Name = "max")]
+        [JsonPropertyName("max")]
         public float TempMax { get; set; }
     }
 }
