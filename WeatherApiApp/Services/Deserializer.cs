@@ -37,8 +37,13 @@ namespace WeatherApiApp.Services
 
         public ClimaAtualOpenW ConverterClimaAtual(string respostaJson)
         {
-            ConverterResultados(respostaJson);
-            return RespostaTotalObjeto["current"].ToObject<ClimaAtualOpenW>();
+            ClimaAtualOpenW clima = new ClimaAtualOpenW();
+            System.Text.Json.JsonSerializerOptions opcoes = new(System.Text.Json.JsonSerializerDefaults.Web);
+            using (System.Text.Json.JsonDocument document = System.Text.Json.JsonDocument.Parse(respostaJson))
+            {
+                clima = document.RootElement.GetProperty("current").ToObject<ClimaAtualOpenW>(opcoes);
+            }
+            return clima;
         }
 
         /*  Implementação antiga de ConverterOpenUV
@@ -50,5 +55,25 @@ namespace WeatherApiApp.Services
             }
 
             return resultadoFinal;*/
+    }
+
+    // Credits: https://stackoverflow.com/a/59047063 User: https://stackoverflow.com/users/3744182/dbc
+    // Converte de JsonElement direto para classe padrão em C#.
+    public static partial class JsonExtensions
+    {
+        public static T ToObject<T>(this System.Text.Json.JsonElement element, System.Text.Json.JsonSerializerOptions options = null)
+        {
+            var bufferWriter = new System.Buffers.ArrayBufferWriter<byte>();
+            using (var writer = new System.Text.Json.Utf8JsonWriter(bufferWriter))
+                element.WriteTo(writer);
+            return System.Text.Json.JsonSerializer.Deserialize<T>(bufferWriter.WrittenSpan, options);
+        }
+
+        public static T ToObject<T>(this System.Text.Json.JsonDocument document, System.Text.Json.JsonSerializerOptions options = null)
+        {
+            if (document == null)
+                throw new System.ArgumentNullException(nameof(document));
+            return document.RootElement.ToObject<T>(options);
+        }
     }
 }

@@ -1,54 +1,55 @@
-﻿using Newtonsoft.Json.Converters;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
 
 namespace WeatherApiApp.Models
 {
     [DataContract]
     public class ClimaAtualOpenW
     {
+        [JsonIgnore]
         public int ID { get; set; }
-
+        [JsonIgnore]
         public Municipio Municipio { get; set; }
 
-        [DataMember(Name = "weather")]
+        [JsonPropertyName("weather")]
         public ICollection<Condicao> Condicoes { get; set; }
-
-        [DataMember(Name = "dt")]
-        [Newtonsoft.Json.JsonConverter(typeof(UnixDateTimeConverter))]
+ 
+        [JsonPropertyName("dt")]
+        [JsonConverter(typeof(UnixEpochDateTimeConverter))]
         [DataType(DataType.Date)]
         public System.DateTime DataPrevisao { get; set; }
 
-        [DataMember(Name = "sunrise")]
-        [Newtonsoft.Json.JsonConverter(typeof(UnixDateTimeConverter))]
+        [JsonPropertyName("sunrise")]
+        [JsonConverter(typeof(UnixEpochDateTimeConverter))]
         [DataType(DataType.Date)]
         public System.DateTime DataAmanhecer { get; set; }
 
-        [DataMember(Name = "sunset")]
-        [Newtonsoft.Json.JsonConverter(typeof(UnixDateTimeConverter))]
+        [JsonPropertyName("sunset")]
+        [JsonConverter(typeof(UnixEpochDateTimeConverter))]
         [DataType(DataType.Date)]
         public System.DateTime DataEntardecer { get; set; }
 
-        [DataMember(Name = "feels_like")]
+        [JsonPropertyName("feels_like")]
         public float SensacaoTermica { get; set; }
 
-        [DataMember(Name = "pressure")]
+        [JsonPropertyName("pressure")]
         public float Pressao { get; set; }
 
-        [DataMember(Name = "humidity")]
+        [JsonPropertyName("humidity")]
         public float Humidade { get; set; } 
 
-        [DataMember(Name = "dew_point")]
+        [JsonPropertyName("dew_point")]
         public float PontoOrvalho { get; set; }
 
-        [DataMember(Name = "uvi")]
+        [JsonPropertyName("uvi")]
         public float IndiceUV { get; set; }
 
-        [DataMember(Name = "clouds")]
+        [JsonPropertyName("clouds")]
         public float CoberturaNuvem { get; set; }
 
-        [DataMember(Name = "visibility")]
+        [JsonPropertyName("visibility")]
         public float Visibilidade { get; set; }
     }
 }

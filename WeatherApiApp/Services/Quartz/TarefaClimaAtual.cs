@@ -53,7 +53,7 @@ namespace WeatherApiApp.Services.Quartz
             catch (Exception ex)
             {
                 _logger.LogError(ex, ex.Message);
-                throw new JobExecutionException(ex, true);
+                throw new JobExecutionException(ex, false);
             }
         }
 

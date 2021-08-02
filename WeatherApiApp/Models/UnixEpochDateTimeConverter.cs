@@ -1,23 +1,21 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using System;
+﻿using System;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace WeatherApiApp.Models
 {
     // Crédito: https://stackoverflow.com/questions/19971494/how-to-deserialize-a-unix-timestamp-μs-to-a-datetime-from-json/19972214#19972214
-    public class UnixEpochDateTimeConverter : DateTimeConverterBase
+    public class UnixEpochDateTimeConverter : JsonConverter<DateTime>
     {
-        private static readonly DateTime _epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        public override DateTime Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            writer.WriteRawValue(((DateTime)value - _epoch).TotalMilliseconds + "000");
+            return DateTime.UnixEpoch.AddSeconds(reader.GetInt64()).ToLocalTime();
         }
 
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        public override void Write(Utf8JsonWriter writer, DateTime value, JsonSerializerOptions options)
         {
-            if (reader.Value == null) { return null; }
-            return _epoch.AddMilliseconds((long)reader.Value / 1000d);
+            writer.WriteStringValue((value - DateTime.UnixEpoch).TotalMilliseconds + "000");
+
         }
     }
 }
