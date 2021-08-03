@@ -10,6 +10,8 @@ namespace WeatherApiApp.Models
         public float Latitude { get; set; }
         public float Longitude { get; set; }
         public float Altitude { get; set; }
+        public string FusoIana { get; set; }
+        public string FusoWin { get; set; }
 
         [Timestamp]
         public byte[] UltimaModificacao { get; set; }
