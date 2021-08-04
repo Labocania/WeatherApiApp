@@ -31,7 +31,7 @@ namespace WeatherApiApp.Services
 
                 foreach (JsonElement resultado in RespostaTotalObjeto.RootElement.GetProperty("result").EnumerateArray())
                 {
-                    previsao.Add(resultado.ToObject<PrevisaoOpenUV>());
+                    previsao.Add(resultado.ToObject<PrevisaoOpenUV>(_opcoes));
                 }
             }
             return previsao;
