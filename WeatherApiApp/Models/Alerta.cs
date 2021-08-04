@@ -21,11 +21,9 @@ namespace WeatherApiApp.Models
 
         [JsonPropertyName("start")]
         [DataType(DataType.Date)]
-        [JsonConverter(typeof(UnixEpochDateTimeConverter))]
         public DateTime DataInicio { get; set; }
 
         [JsonPropertyName("end")]
-        [JsonConverter(typeof(UnixEpochDateTimeConverter))]
         [DataType(DataType.Date)]
         public DateTime DataTermino { get; set; }
 

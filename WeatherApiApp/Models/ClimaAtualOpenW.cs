@@ -17,17 +17,14 @@ namespace WeatherApiApp.Models
         public ICollection<Condicao> Condicoes { get; set; }
  
         [JsonPropertyName("dt")]
-        [JsonConverter(typeof(UnixEpochDateTimeConverter))]
         [DataType(DataType.Date)]
         public System.DateTime DataPrevisao { get; set; }
 
         [JsonPropertyName("sunrise")]
-        [JsonConverter(typeof(UnixEpochDateTimeConverter))]
         [DataType(DataType.Date)]
         public System.DateTime DataAmanhecer { get; set; }
 
         [JsonPropertyName("sunset")]
-        [JsonConverter(typeof(UnixEpochDateTimeConverter))]
         [DataType(DataType.Date)]
         public System.DateTime DataEntardecer { get; set; }
 

@@ -1,25 +1,34 @@
 ﻿using System.Collections.Generic;
 using System.Text.Json;
 using WeatherApiApp.Models;
+using WeatherApiApp.Extensions;
 
 namespace WeatherApiApp.Services
 {
     public class Deserializer
     {
         public JsonDocument RespostaTotalObjeto { get; private set; }
-        private JsonSerializerOptions _opcoes = new(JsonSerializerDefaults.Web);
+        private JsonSerializerOptions _opcoes;
 
         private void ConverterResultados(string respostaTexto)
         {
             RespostaTotalObjeto = JsonDocument.Parse(respostaTexto);
         }
 
-        public IList<PrevisaoOpenUV> ConverterOpenUV(string respostaJson)
+        public IList<PrevisaoOpenUV> ConverterOpenUV(string fusoHorario, string respostaJson)
         {
             ConverterResultados(respostaJson);
             IList<PrevisaoOpenUV> previsao = new List<PrevisaoOpenUV>();
             using (RespostaTotalObjeto)
             {
+                _opcoes = new(JsonSerializerDefaults.Web)
+                {
+                    Converters =
+                    {
+                        new ConversorFusoHorario(fusoHorario)
+                    }
+                };
+
                 foreach (JsonElement resultado in RespostaTotalObjeto.RootElement.GetProperty("result").EnumerateArray())
                 {
                     previsao.Add(resultado.ToObject<PrevisaoOpenUV>());
@@ -32,16 +41,26 @@ namespace WeatherApiApp.Services
         {
             ConverterResultados(respostaJson);
             PrevisaoDiariaOpenW previsao = new PrevisaoDiariaOpenW();
-            previsao.Alertas = new List<Alerta>();
             using (RespostaTotalObjeto) 
             {
+                _opcoes = new(JsonSerializerDefaults.Web)
+                {
+                    Converters =
+                    {
+                        new UnixEpochDateTimeConverter(RespostaTotalObjeto.RootElement.GetProperty("timezone").GetString())
+                    }
+                };
+
                 previsao = RespostaTotalObjeto.RootElement.GetProperty("daily")[0].ToObject<PrevisaoDiariaOpenW>(_opcoes);
                 if (RespostaTotalObjeto.RootElement.TryGetProperty("alerts", out JsonElement alertas))
                 {
+                    List<Alerta> listaAlertas = new List<Alerta>();
                     foreach (JsonElement alerta in alertas.EnumerateArray())
                     {
-                        previsao.Alertas.Add(alerta.ToObject<Alerta>(_opcoes));
+                        listaAlertas.Add(alerta.ToObject<Alerta>(_opcoes));
                     }
+
+                    previsao.Alertas = listaAlertas;
                 }
             }           
             return previsao;
@@ -53,20 +72,18 @@ namespace WeatherApiApp.Services
             ClimaAtualOpenW clima = new ClimaAtualOpenW();
             using (RespostaTotalObjeto)
             {
+                _opcoes = new(JsonSerializerDefaults.Web)
+                {
+                    Converters =
+                    {
+                        new UnixEpochDateTimeConverter(RespostaTotalObjeto.RootElement.GetProperty("timezone").GetString())
+                    }
+                };
+
                 clima = RespostaTotalObjeto.RootElement.GetProperty("current").ToObject<ClimaAtualOpenW>(_opcoes);
             }
             return clima;
         }
-
-        /*  Implementação antiga de ConverterOpenUV
-         *  IList<JToken> resultadoParcial = RespostaTotalObjeto.SelectTokens("result").Children().ToList();
-            IList<PrevisaoOpenUV> resultadoFinal = new List<PrevisaoOpenUV>();
-            foreach (JToken resultado in resultadoParcial)
-            {
-                resultadoFinal.Add(resultado.ToObject<PrevisaoOpenUV>());
-            }
-
-            return resultadoFinal;*/
     }
 
     // Credits: https://stackoverflow.com/a/59047063 User: https://stackoverflow.com/users/3744182/dbc

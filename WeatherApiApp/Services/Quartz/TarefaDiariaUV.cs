@@ -60,7 +60,7 @@ namespace WeatherApiApp.Services.Quartz
         private async Task TarefaOpenUV(Municipio municipio, IJobExecutionContext context)
         {
             _logger.LogInformation("Chamando OpenUV API e convertendo a resposta.");
-            municipio.PrevisoesOpenUV = _deserializer.ConverterOpenUV(await _openUVCaller.ChamarApiAsync(municipio));
+            municipio.PrevisoesOpenUV = _deserializer.ConverterOpenUV(municipio.FusoWin, await _openUVCaller.ChamarApiAsync(municipio));
             _logger.LogInformation("Adicionando PrevisaoOpenUV ao rastreamento.");
             foreach (PrevisaoOpenUV previsao in municipio.PrevisoesOpenUV)
             {

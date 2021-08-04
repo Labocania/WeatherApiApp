@@ -1,15 +1,20 @@
 ﻿using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using TimeZoneConverter;
 
-namespace WeatherApiApp.Models
+namespace WeatherApiApp.Extensions
 {
-    // Crédito: https://stackoverflow.com/questions/19971494/how-to-deserialize-a-unix-timestamp-μs-to-a-datetime-from-json/19972214#19972214
+    // Crédito: https://stackoverflow.com/a/63884990
     public class UnixEpochDateTimeConverter : JsonConverter<DateTime>
     {
+        private string _timeZone;
+        public UnixEpochDateTimeConverter(string timeZone) => _timeZone = timeZone;
+
         public override DateTime Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            return DateTime.UnixEpoch.AddSeconds(reader.GetInt64()).ToLocalTime();
+            return TimeZoneInfo.ConvertTime(DateTime.UnixEpoch.AddSeconds(reader.GetInt64()), 
+                TimeZoneInfo.FindSystemTimeZoneById(TZConvert.IanaToWindows(_timeZone)));
         }
 
         public override void Write(Utf8JsonWriter writer, DateTime value, JsonSerializerOptions options)
