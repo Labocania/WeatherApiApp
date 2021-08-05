@@ -16,7 +16,7 @@ namespace WeatherApiApp.Services.Quartz
         protected readonly ILogger<TarefaConsumeAPI> _logger;
         protected readonly AppDbContext _appDb;
         protected readonly List<Municipio> _municipios;
-        protected readonly IClienteApi clienteApi;
+        protected IClienteApi clienteApi;
         protected readonly Deserializer _deserializer;
 
         protected TarefaConsumeAPI(ILogger<TarefaConsumeAPI> logger, AppDbContext appDb, Deserializer deserializer)
@@ -35,9 +35,9 @@ namespace WeatherApiApp.Services.Quartz
                 _logger.LogInformation($"Obtendo previsões para o município: {municipio.Nome}.");
                 await Executor<Municipio, Task>(Tarefa, municipio, context);
             }
-            _logger.LogInformation("Salvando previsões.");
+            _logger.LogInformation("Salvando no banco de dados.");
             await _appDb.SaveChangesAsync(context.CancellationToken);
-            _logger.LogInformation($"Previsão salva!");
+            _logger.LogInformation($"Tarefa concluída!");
         }
 
         private TResult Executor<T,TResult>(Func<T, TResult> acao, T arg, IJobExecutionContext context)
@@ -74,9 +74,9 @@ namespace WeatherApiApp.Services.Quartz
             throw new JobExecutionException(ex, false);
         }
 
-        protected virtual async Task Tarefa(Municipio municipio)
+        protected virtual Task Tarefa(Municipio municipio)
         {
-            await default(Task);
+            return default;
         }
     }
 }
