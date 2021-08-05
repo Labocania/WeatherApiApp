@@ -66,7 +66,7 @@ namespace WeatherApiApp
             // Registra Quartz na injeção de dependência.
             services.AddQuartz(q =>
             {
-                q.UseMicrosoftDependencyInjectionScopedJobFactory(); // Configura o uso de serviços "Scoped"
+                q.UseMicrosoftDependencyInjectionJobFactory(); // Configura o uso de serviços "Scoped"
                 q.AddJobAndTrigger<TarefaDiariaUV>(Configuration);
                 q.AddJobAndTrigger<TarefaDiariaW>(Configuration);
                 q.AddJobAndTrigger<TarefaClimaAtual>(Configuration);
