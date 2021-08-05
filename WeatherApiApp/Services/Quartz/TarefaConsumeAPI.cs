@@ -37,7 +37,7 @@ namespace WeatherApiApp.Services.Quartz
             }
             _logger.LogInformation("Salvando no banco de dados.");
             await _appDb.SaveChangesAsync(context.CancellationToken);
-            _logger.LogInformation($"Tarefa concluída!");
+            _logger.LogInformation($"{GetType().Name} concluída!");
         }
 
         private TResult Executor<T,TResult>(Func<T, TResult> acao, T arg, IJobExecutionContext context)
