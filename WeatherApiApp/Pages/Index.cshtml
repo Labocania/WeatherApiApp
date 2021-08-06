@@ -4,7 +4,15 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<h2>Selecione uma capital!</h2>
+
+<div class="col">
+    <div class="col-md-3">
+        <div class="form-group">
+            <label><strong>Capitais</strong></label>
+            <select class="form-control" asp-for="MunicipioIdInput" asp-items="Model.IndiceMunicipios" size="@Model.IndiceMunicipios.Count()">
+
+            </select>
+        </div>
+    </div>
 </div>

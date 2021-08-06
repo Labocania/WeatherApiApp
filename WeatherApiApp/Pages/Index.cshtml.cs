@@ -1,23 +1,34 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
+using System.Linq;
+using WeatherApiApp.Data;
 using WeatherApiApp.Models;
 
 namespace WeatherApiApp.Pages
 {
     public class IndexModel : PageModel
     {
+        private readonly AppDbContext _context;
         private readonly ILogger<IndexModel> _logger;
-        
-        public IndexModel(ILogger<IndexModel> logger)
-        {
-            _logger = logger;
-        }
 
         [BindProperty(SupportsGet = true)]
-        public int municipioId { get; set; }
-        public IList<PrevisaoOpenUV> PrevisoesOpenUV { get; set; }
+        public int MunicipioIdInput { get; set; }
+
+        [BindProperty]
+        public ICollection<SelectListItem> IndiceMunicipios { get; private set; } = new List<SelectListItem>();
+
+        public IndexModel(ILogger<IndexModel> logger, AppDbContext context)
+        {
+            _logger = logger;
+            _context = context;
+            foreach (Municipio municipio in _context.Municipios.ToList())
+            {
+                IndiceMunicipios.Add(item: new SelectListItem { Value = municipio.ID.ToString(), Text = municipio.Nome });
+            }
+        }
 
         public void OnGet()
         {
