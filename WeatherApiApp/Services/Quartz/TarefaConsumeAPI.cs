@@ -60,6 +60,12 @@ namespace WeatherApiApp.Services.Quartz
         protected virtual async Task LidaErroChamada(HttpRequestException ex, IJobExecutionContext context)
         {
             _logger.LogError(ex, ex.Message);
+
+            if (context.RefireCount >= 3)
+            {
+                throw new JobExecutionException(ex, false);
+            }
+
             ITrigger trigger = TriggerBuilder
                     .Create()
                     .WithIdentity($"{GetType().Name}-trigger")
