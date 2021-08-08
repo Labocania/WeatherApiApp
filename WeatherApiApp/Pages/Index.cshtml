@@ -6,13 +6,28 @@
 
 <h2>Selecione uma capital!</h2>
 
-<div class="col">
-    <div class="col-md-3">
-        <div class="form-group">
-            <label><strong>Capitais</strong></label>
-            <select class="form-control" asp-for="MunicipioIdInput" asp-items="Model.IndiceMunicipios" size="@Model.IndiceMunicipios.Count()">
-
-            </select>
+<div class="container">
+    <div class="row">
+        <div class="col col-lg-2">
+            <div class="form-group">
+                <label><strong>Capitais</strong></label>
+                <select class="form-control" asp-for="MunicipioIdInput" asp-items="Model.IndiceMunicipios" size="@Model.IndiceMunicipios.Count()">
+                </select>
+            </div>
         </div>
-    </div>
+        <div class="col-md-auto">
+            <div class="form-group">
+                <label><strong>Capitais</strong></label>
+                <select class="form-control" asp-for="MunicipioIdInput" asp-items="Model.IndiceMunicipios" size="@Model.IndiceMunicipios.Count()">
+                </select>
+            </div>
+        </div>
+        <div class="col-md-auto">
+            <div class="form-group">
+                <label><strong>Capitais</strong></label>
+                <select class="form-control" asp-for="MunicipioIdInput" asp-items="Model.IndiceMunicipios" size="@Model.IndiceMunicipios.Count()">
+                </select>
+            </div>
+        </div>
+    </div> 
 </div>
