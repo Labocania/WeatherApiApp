@@ -67,9 +67,9 @@ namespace WeatherApiApp
             services.AddQuartz(q =>
             {
                 q.UseMicrosoftDependencyInjectionJobFactory(); // Configura o uso de serviços "Scoped"
-                //q.AddJobAndTrigger<TarefaDiariaUV>(Configuration);
-                //q.AddJobAndTrigger<TarefaDiariaW>(Configuration);
-                //q.AddJobAndTrigger<TarefaClimaAtual>(Configuration);
+                q.AddJobAndTrigger<TarefaDiariaUV>(Configuration);
+                q.AddJobAndTrigger<TarefaDiariaW>(Configuration);
+                q.AddJobAndTrigger<TarefaClimaAtual>(Configuration);
             }); 
             // Adiciona Quartz.NET IHostedService que executa agendamentos.
             services.AddQuartzHostedService(q => q.WaitForJobsToComplete = true);
