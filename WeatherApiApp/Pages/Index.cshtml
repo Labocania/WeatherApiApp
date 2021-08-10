@@ -6,28 +6,162 @@
 
 <h2>Selecione uma capital!</h2>
 
-<div class="container">
-    <div class="row">
-        <div class="col col-lg-2">
-            <div class="form-group">
-                <label><strong>Capitais</strong></label>
-                <select class="form-control" asp-for="MunicipioIdInput" asp-items="Model.IndiceMunicipios" size="@Model.IndiceMunicipios.Count()">
-                </select>
+<div class="row justify-content-md-center">
+    <div class="col-sm-2">
+        <div class="form-group">
+            <select class="form-control" asp-for="MunicipioIdInput" asp-items="Model.IndiceMunicipios" size="@Model.IndiceMunicipios.Count()">
+            </select>
+        </div>
+    </div>
+    <div class="col-sm-10 h-25">
+        <ul class="nav nav-pills mb-3" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="open-weather-tab" data-bs-toggle="tab" data-bs-target="#open-weather" type="button" role="tab" aria-controls="open-weather" aria-selected="true">Open Weather Map</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="open-uv-tab" data-bs-toggle="tab" data-bs-target="#open-uv" type="button" role="tab" aria-controls="open-uv" aria-selected="false">Open UV</button>
+            </li>
+        </ul>
+
+        <div class="tab-content">
+            <div class="tab-pane active" id="open-weather" role="tabpanel" aria-labelledby="open-weather-tab">
+                <div class="row justify-content-md-center">
+                    <div class="col-sm-6" style="overflow-y:scroll">
+                        <div class="list-group">
+                            <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
+                                <div class="d-flex w-100 justify-content-center">
+                                    <h5 class="mb-1">Clima Atual</h5>
+                                </div>
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action list-group-item-primary">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">Índice: [11+...) (Extremo)</h5>
+                                    <small class="text-muted">10/08/2021 às 13h:00:00</small>
+                                </div>
+                                <p class="mb-1">Mensagem sobre índice UV.</p>
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action list-group-item-danger">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">Índice: [8-11) (Muito Alto)</h5>
+                                    <small class="text-muted">10/08/2021 às 15h:00:00</small>
+                                </div>
+                                <p class="mb-1">Mensagem sobre índice UV.</p>
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action list-group-item-warning">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">Índice: [6-8) (Alto)</h5>
+                                    <small class="text-muted">10/08/2021 às 17h:00:00</small>
+                                </div>
+                                <p class="mb-1">Mensagem sobre índice UV.</p>
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action list-group-item-dark">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">Índice: [3-6) (Moderado)</h5>
+                                    <small class="text-muted">10/08/2021 às 17h:00:00</small>
+                                </div>
+                                <p class="mb-1">Mensagem sobre índice UV.</p>
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action list-group-item-light">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">Índice: [0-3) (Baixo)</h5>
+                                    <small class="text-muted">10/08/2021 às 17h:00:00</small>
+                                </div>
+                                <p class="mb-1">Mensagem sobre índice UV.</p>
+                            </a>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-6" style="overflow-y:scroll">
+                        <div class="list-group">
+                            <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
+                                <div class="d-flex w-100 justify-content-center">
+                                    <h5 class="mb-1">Previsão Diária</h5>
+                                </div>
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action list-group-item-primary">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">Índice: [11+...) (Extremo)</h5>
+                                    <small class="text-muted">10/08/2021 às 13h:00:00</small>
+                                </div>
+                                <p class="mb-1">Mensagem sobre índice UV.</p>
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action list-group-item-danger">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">Índice: [8-11) (Muito Alto)</h5>
+                                    <small class="text-muted">10/08/2021 às 15h:00:00</small>
+                                </div>
+                                <p class="mb-1">Mensagem sobre índice UV.</p>
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action list-group-item-warning">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">Índice: [6-8) (Alto)</h5>
+                                    <small class="text-muted">10/08/2021 às 17h:00:00</small>
+                                </div>
+                                <p class="mb-1">Mensagem sobre índice UV.</p>
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action list-group-item-dark">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">Índice: [3-6) (Moderado)</h5>
+                                    <small class="text-muted">10/08/2021 às 17h:00:00</small>
+                                </div>
+                                <p class="mb-1">Mensagem sobre índice UV.</p>
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action list-group-item-light">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">Índice: [0-3) (Baixo)</h5>
+                                    <small class="text-muted">10/08/2021 às 17h:00:00</small>
+                                </div>
+                                <p class="mb-1">Mensagem sobre índice UV.</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="open-uv" role="tabpanel" aria-labelledby="open-uv-tab">
+                <div class="list-group">
+                    <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
+                        <div class="d-flex w-100 justify-content-center">
+                            <h5 class="mb-1">Índice UV Diário</h5>
+                        </div>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action list-group-item-primary">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">Índice: [11+...) (Extremo)</h5>
+                            <small class="text-muted">10/08/2021 às 13h:00:00</small>
+                        </div>
+                        <p class="mb-1">Mensagem sobre índice UV.</p>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action list-group-item-danger">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">Índice: [8-11) (Muito Alto)</h5>
+                            <small class="text-muted">10/08/2021 às 15h:00:00</small>
+                        </div>
+                        <p class="mb-1">Mensagem sobre índice UV.</p>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action list-group-item-warning">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">Índice: [6-8) (Alto)</h5>
+                            <small class="text-muted">10/08/2021 às 17h:00:00</small>
+                        </div>
+                        <p class="mb-1">Mensagem sobre índice UV.</p>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action list-group-item-dark">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">Índice: [3-6) (Moderado)</h5>
+                            <small class="text-muted">10/08/2021 às 17h:00:00</small>
+                        </div>
+                        <p class="mb-1">Mensagem sobre índice UV.</p>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action list-group-item-light">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">Índice: [0-3) (Baixo)</h5>
+                            <small class="text-muted">10/08/2021 às 17h:00:00</small>
+                        </div>
+                        <p class="mb-1">Mensagem sobre índice UV.</p>
+                    </a>
+                </div>
             </div>
         </div>
-        <div class="col-md-auto">
-            <div class="form-group">
-                <label><strong>Capitais</strong></label>
-                <select class="form-control" asp-for="MunicipioIdInput" asp-items="Model.IndiceMunicipios" size="@Model.IndiceMunicipios.Count()">
-                </select>
-            </div>
-        </div>
-        <div class="col-md-auto">
-            <div class="form-group">
-                <label><strong>Capitais</strong></label>
-                <select class="form-control" asp-for="MunicipioIdInput" asp-items="Model.IndiceMunicipios" size="@Model.IndiceMunicipios.Count()">
-                </select>
-            </div>
-        </div>
-    </div> 
+    </div>
 </div>
+<div class="d-flex p-2 bd-highlight">I'm a flexbox container!</div>

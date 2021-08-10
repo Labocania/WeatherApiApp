@@ -18,12 +18,15 @@ namespace WeatherApiApp.Pages
         public int MunicipioIdInput { get; set; }
 
         [BindProperty]
+        public List<ClimaAtualOpenW> ClimasAtuais { get; private set; }
+        [BindProperty]
         public ICollection<SelectListItem> IndiceMunicipios { get; private set; } = new List<SelectListItem>();
 
         public IndexModel(ILogger<IndexModel> logger, AppDbContext context)
         {
             _logger = logger;
             _context = context;
+            ClimasAtuais = _context.ClimasAtuaisOpenW.ToList();
             foreach (Municipio municipio in _context.Municipios.ToList())
             {
                 IndiceMunicipios.Add(item: new SelectListItem { Value = municipio.ID.ToString(), Text = municipio.Nome });
