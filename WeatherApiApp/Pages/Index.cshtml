@@ -2,6 +2,7 @@
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
+    WeatherApiApp.Models.ClimaAtualOpenW climaAtual = Model.ClimasAtuais.First();
 }
 
 <h2>Selecione uma capital!</h2>
@@ -23,53 +24,46 @@
             </li>
         </ul>
 
+        <!-- Template
+            <a href="#" class="list-group-item list-group-item-action">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">Sensação Térmica</h5>
+                    <small class="text-muted">Núvens dispersas.</small>
+                </div>
+                <p class="mb-1">38°C</p>
+                <small>3 days ago</small>
+            </a> -->
+
         <div class="tab-content">
             <div class="tab-pane active" id="open-weather" role="tabpanel" aria-labelledby="open-weather-tab">
                 <div class="row justify-content-md-center">
                     <div class="col-sm-6" style="overflow-y:scroll">
                         <div class="list-group">
                             <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
-                                <div class="d-flex w-100 justify-content-center">
+                                <div class="d-flex w-100 justify-content-between">
                                     <h5 class="mb-1">Clima Atual</h5>
+                                    <small>@climaAtual.DataPrevisao.Date.ToString("g")</small>
                                 </div>
                             </a>
-                            <a href="#" class="list-group-item list-group-item-action list-group-item-primary">
+                            <a href="#" class="list-group-item list-group-item-action">
                                 <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="mb-1">Índice: [11+...) (Extremo)</h5>
-                                    <small class="text-muted">10/08/2021 às 13h:00:00</small>
+                                    <h5 class="mb-1">Núvens - 02d.png</h5>
+                                    <small class="text-muted">Núvens dispersas.</small>
                                 </div>
-                                <p class="mb-1">Mensagem sobre índice UV.</p>
                             </a>
-                            <a href="#" class="list-group-item list-group-item-action list-group-item-danger">
+                            <a href="#" class="list-group-item list-group-item-action">
                                 <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="mb-1">Índice: [8-11) (Muito Alto)</h5>
-                                    <small class="text-muted">10/08/2021 às 15h:00:00</small>
+                                    <h5 class="mb-1">Sensação Térmica</h5>
+                                    <p class="mb-1">@climaAtual.SensacaoTermica°C</p>
                                 </div>
-                                <p class="mb-1">Mensagem sobre índice UV.</p>
                             </a>
-                            <a href="#" class="list-group-item list-group-item-action list-group-item-warning">
+                            <a href="#" class="list-group-item list-group-item-action">
                                 <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="mb-1">Índice: [6-8) (Alto)</h5>
-                                    <small class="text-muted">10/08/2021 às 17h:00:00</small>
+                                    <h5 class="mb-1">Humidade Relativa</h5>
+                                    <p class="mb-1">@climaAtual.Humidade%</p>
                                 </div>
-                                <p class="mb-1">Mensagem sobre índice UV.</p>
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action list-group-item-dark">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="mb-1">Índice: [3-6) (Moderado)</h5>
-                                    <small class="text-muted">10/08/2021 às 17h:00:00</small>
-                                </div>
-                                <p class="mb-1">Mensagem sobre índice UV.</p>
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action list-group-item-light">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="mb-1">Índice: [0-3) (Baixo)</h5>
-                                    <small class="text-muted">10/08/2021 às 17h:00:00</small>
-                                </div>
-                                <p class="mb-1">Mensagem sobre índice UV.</p>
                             </a>
                         </div>
-
                     </div>
                     <div class="col-sm-6" style="overflow-y:scroll">
                         <div class="list-group">
@@ -163,5 +157,5 @@
             </div>
         </div>
     </div>
-</div>
-<div class="d-flex p-2 bd-highlight">I'm a flexbox container!</div>
+    </div>
+    <div class="d-flex p-2 bd-highlight">I'm a flexbox container!</div>
