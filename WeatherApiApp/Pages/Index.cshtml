@@ -1,8 +1,7 @@
-﻿@page
+﻿@page "/{MunicipioIdInput:int=1}"
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
-    WeatherApiApp.Models.ClimaAtualOpenW climaAtual = Model.ClimasAtuais.First();
 }
 
 <h2>Selecione uma capital!</h2>
@@ -42,25 +41,33 @@
                             <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
                                 <div class="d-flex w-100 justify-content-between">
                                     <h5 class="mb-1">Clima Atual</h5>
-                                    <small>@climaAtual.DataPrevisao.Date.ToString("g")</small>
+                                    <small>@Model.ClimaAtual.DataPrevisao.ToString("g")</small>
                                 </div>
                             </a>
-                            <a href="#" class="list-group-item list-group-item-action">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="mb-1">Núvens - 02d.png</h5>
-                                    <small class="text-muted">Núvens dispersas.</small>
-                                </div>
-                            </a>
+                            @{
+                                if (Model.ClimaAtual.Condicoes != null)
+                                {
+                                    foreach (var condicao in Model.ClimaAtual.Condicoes)
+                                    {
+                                        <a href="#" class="list-group-item list-group-item-action">
+                                            <div class="d-flex w-100 justify-content-between">
+                                                <h5 class="mb-1">@condicao.Principal - @condicao.Icone</h5>
+                                                <small class="text-muted">@condicao.Detalhes.</small>
+                                            </div>
+                                        </a>
+                                    }
+                                }
+                            }
                             <a href="#" class="list-group-item list-group-item-action">
                                 <div class="d-flex w-100 justify-content-between">
                                     <h5 class="mb-1">Sensação Térmica</h5>
-                                    <p class="mb-1">@climaAtual.SensacaoTermica°C</p>
+                                    <p class="mb-1">@Model.ClimaAtual.SensacaoTermica°C</p>
                                 </div>
                             </a>
                             <a href="#" class="list-group-item list-group-item-action">
                                 <div class="d-flex w-100 justify-content-between">
                                     <h5 class="mb-1">Humidade Relativa</h5>
-                                    <p class="mb-1">@climaAtual.Humidade%</p>
+                                    <p class="mb-1">@Model.ClimaAtual.Humidade%</p>
                                 </div>
                             </a>
                         </div>

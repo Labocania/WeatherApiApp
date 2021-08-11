@@ -75,6 +75,7 @@ namespace WeatherApiApp
             services.AddQuartzHostedService(q => q.WaitForJobsToComplete = true);
 
             services.AddScoped<Deserializer>();
+            services.AddScoped<ServicoMunicipio>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

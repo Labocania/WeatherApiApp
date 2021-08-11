@@ -4,38 +4,36 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Linq;
-using WeatherApiApp.Data;
+using System.Threading.Tasks;
 using WeatherApiApp.Models;
+using WeatherApiApp.Services;
 
 namespace WeatherApiApp.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly AppDbContext _context;
+        private readonly ServicoMunicipio _servicoMunicipio;
         private readonly ILogger<IndexModel> _logger;
 
         [BindProperty(SupportsGet = true)]
         public int MunicipioIdInput { get; set; }
 
         [BindProperty]
-        public List<ClimaAtualOpenW> ClimasAtuais { get; private set; }
+        public ClimaAtualOpenW ClimaAtual { get; private set; }
         [BindProperty]
-        public ICollection<SelectListItem> IndiceMunicipios { get; private set; } = new List<SelectListItem>();
+        public ICollection<SelectListItem> IndiceMunicipios { get; private set; }
 
-        public IndexModel(ILogger<IndexModel> logger, AppDbContext context)
+        public IndexModel(ILogger<IndexModel> logger, ServicoMunicipio servicoMunicipio)
         {
             _logger = logger;
-            _context = context;
-            ClimasAtuais = _context.ClimasAtuaisOpenW.ToList();
-            foreach (Municipio municipio in _context.Municipios.ToList())
-            {
-                IndiceMunicipios.Add(item: new SelectListItem { Value = municipio.ID.ToString(), Text = municipio.Nome });
-            }
+            _servicoMunicipio = servicoMunicipio;
+            IndiceMunicipios = servicoMunicipio.PegaSelecaoMunicipios();
         }
 
-        public void OnGet()
+        public async Task<IActionResult> OnGetAsync()
         {
-
+            ClimaAtual = await _servicoMunicipio.PegaClimaAtualAsync(MunicipioIdInput);
+            return Page();
         }
     }
 }
