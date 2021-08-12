@@ -15,24 +15,21 @@ namespace WeatherApiApp.Pages
         private readonly ServicoMunicipio _servicoMunicipio;
         private readonly ILogger<IndexModel> _logger;
 
-        [BindProperty(SupportsGet = true)]
-        public int MunicipioIdInput { get; set; }
-
         [BindProperty]
         public ClimaAtualOpenW ClimaAtual { get; private set; }
         [BindProperty]
-        public ICollection<SelectListItem> IndiceMunicipios { get; private set; }
+        public Dictionary<string, int> Municipios { get; private set; }
 
         public IndexModel(ILogger<IndexModel> logger, ServicoMunicipio servicoMunicipio)
         {
             _logger = logger;
             _servicoMunicipio = servicoMunicipio;
-            IndiceMunicipios = servicoMunicipio.PegaSelecaoMunicipios();
+            Municipios = servicoMunicipio.PegaSelecaoMunicipios();
         }
 
-        public async Task<IActionResult> OnGetAsync()
+        public async Task<IActionResult> OnGetAsync(string nome = "Rio-Branco")
         {
-            ClimaAtual = await _servicoMunicipio.PegaClimaAtualAsync(MunicipioIdInput);
+            ClimaAtual = await _servicoMunicipio.PegaClimaAtualAsync(Municipios[nome]);
             return Page();
         }
     }

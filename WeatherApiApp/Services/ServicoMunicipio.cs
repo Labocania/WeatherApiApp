@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -23,31 +22,37 @@ namespace WeatherApiApp.Services
             Municipios = _context.Municipios.ToList();
         }
 
-        public ICollection<SelectListItem> PegaSelecaoMunicipios()
+        public Dictionary<string, int> PegaSelecaoMunicipios()
         {
-            ICollection<SelectListItem> indiceMunicipios = new List<SelectListItem>();
-            foreach (var municipio in Municipios)
+            Dictionary<string, int> valores = new Dictionary<string, int>();
+            foreach (Municipio municipio in Municipios)
             {
-                indiceMunicipios.Add(item: new SelectListItem { Value = municipio.ID.ToString(), Text = municipio.Nome });
+                valores.Add(municipio.Nome.Replace(" ", "-"), municipio.ID);
             }
-
-            return indiceMunicipios;
+            return valores;
         }
 
         public async Task<ClimaAtualOpenW> PegaClimaAtualAsync(int id)
         {
-            return await _context.ClimasAtuaisOpenW
+            return await _context.ClimasAtuaisOpenW.Where(clima => clima.Municipio.ID == id)
                 .Include(clima => clima.Condicoes)
-                .Include(clima => clima.Municipio).Where(clima => clima.Municipio.ID == id)
                 .OrderBy(clima => clima.DataPrevisao)
-                .LastAsync();
+                .LastAsync();           
+        }
 
-           /* return await _context.Municipios
-                .Where(x => x.ID == id)
-                .Include(municipio => municipio.ClimasAtuaisOpenW
-                                        .Where(clima => clima.Municipio.ID == id)
-                                        .TakeLast(1))
-                .SingleOrDefaultAsync();  */            
+        public async Task<PrevisaoDiariaOpenW> PegaPrevisaoWAsync(int id)
+        {
+            return await _context.PrevisoesDiariasOpenW.Where(previsao => previsao.Municipio.ID == id)
+                .Include(previsao => previsao.Condicoes)
+                .Include(previsao => previsao.Temperatura)
+                .Include(previsao => previsao.SensacaoTermica)
+                .Include(previsao => previsao.Alertas.Where(alerta => alerta != null))
+                .LastAsync();
+        }
+
+        public async Task<PrevisaoOpenUV> PegaPrevisaoUVAsync(int id)
+        {
+            return await _context.PrevisoesOpenUV.Where(previsao => previsao.Municipio.ID == id).LastAsync();
         }
     }
 }
