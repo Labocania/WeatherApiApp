@@ -199,6 +199,22 @@
                                     <p class="mb-1">@Model.PrevisaoDiaria.PontoOrvalho°C</p>
                                 </div>
                             </a>
+                            @{
+                                <a href="#" class="list-group-item list-group-item-action">
+                                    @if (Model.PrevisaoDiaria.Alertas != null)
+                                    {
+                                        @foreach (var alerta in Model.PrevisaoDiaria.Alertas)
+                                        {
+                                            <div class="d-flex w-100 justify-content-between">
+                                                <h5 class="mb-1">Alerta: @alerta.Evento</h5>
+                                                <small class="text-muted">De @alerta.DataInicio.ToString("d") até @alerta.DataTermino.ToString("d")</small>
+                                            </div>
+                                            <small>@alerta.Descricao</small>
+                                            <small>Fonte: @alerta.AlertaFonte</small>
+                                        }
+                                    }                                    
+                                </a>
+                            }
                         </div>
                     </div>
                 </div>
