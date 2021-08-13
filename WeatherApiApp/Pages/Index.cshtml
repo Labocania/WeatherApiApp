@@ -51,18 +51,23 @@
                                 </div>
                             </a>
                             @{
-                                if (Model.ClimaAtual.Condicoes != null)
+                                <a href="#" class="list-group-item list-group-item-action">
+                               @if (Model.ClimaAtual.Condicoes != null)
                                 {
-                                    foreach (var condicao in Model.ClimaAtual.Condicoes)
+                                   @foreach (var condicao in Model.ClimaAtual.Condicoes)
                                     {
-                                        <a href="#" class="list-group-item list-group-item-action">
-                                            <div class="d-flex w-100 justify-content-between">
-                                                <h5 class="mb-1">@condicao.Principal - @condicao.Icone</h5>
-                                                <small class="text-muted">@condicao.Detalhes.</small>
-                                            </div>
-                                        </a>
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h5 class="mb-1">@condicao.Principal - @condicao.Icone</h5>
+                                            <small class="text-muted">@condicao.Detalhes.</small>
+                                        </div>
                                     }
                                 }
+
+                               @if (Model.ClimaAtual.Chuva != null)
+                                {
+                                    <small>Precipitação na última hora: @Model.ClimaAtual.Chuva.ChuvaUltimaHora mm</small>
+                                }
+                                </a>
                             }
                             <a href="#" class="list-group-item list-group-item-action">
                                 <div class="d-flex w-100 justify-content-between">

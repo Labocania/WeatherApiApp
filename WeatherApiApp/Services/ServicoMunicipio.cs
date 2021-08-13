@@ -36,8 +36,9 @@ namespace WeatherApiApp.Services
         {
             return await _context.ClimasAtuaisOpenW.Where(clima => clima.Municipio.ID == id)
                 .Include(clima => clima.Condicoes)
-                .OrderBy(clima => clima.DataPrevisao)
-                .LastAsync();           
+                .Include(clima => clima.Chuva)
+                .OrderByDescending(clima => clima.ID)
+                .FirstAsync();
         }
 
         public async Task<PrevisaoDiariaOpenW> PegaPrevisaoWAsync(int id)

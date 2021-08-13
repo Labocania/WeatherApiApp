@@ -15,7 +15,10 @@ namespace WeatherApiApp.Models
 
         [JsonPropertyName("weather")]
         public ICollection<Condicao> Condicoes { get; set; }
- 
+
+        [JsonPropertyName("rain")]
+        public Chuva Chuva { get; set; }
+        
         [JsonPropertyName("dt")]
         [DataType(DataType.Date)]
         public System.DateTime DataPrevisao { get; set; }
