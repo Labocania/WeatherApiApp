@@ -57,8 +57,8 @@
                                    @foreach (var condicao in Model.ClimaAtual.Condicoes)
                                     {
                                         <div class="d-flex w-100 justify-content-between">
-                                            <h5 class="mb-1">@condicao.Principal - @condicao.Icone</h5>
-                                            <small class="text-muted">@condicao.Detalhes.</small>
+                                            <h5 class="mb-1">Condição atual: @condicao.Detalhes</h5>
+                                            <small class="text-muted">@condicao.Icone</small>
                                         </div>
                                     }
                                 }
@@ -110,44 +110,94 @@
                     <div class="col-sm-6" style="overflow-y:scroll">
                         <div class="list-group">
                             <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
-                                <div class="d-flex w-100 justify-content-center">
+                                <div class="d-flex w-100 justify-content-between">
                                     <h5 class="mb-1">Previsão Diária</h5>
+                                    <small>@Model.PrevisaoDiaria.DataPrevisao.ToString("g")</small>
                                 </div>
                             </a>
-                            <a href="#" class="list-group-item list-group-item-action list-group-item-primary">
+                            <a href="#" class="list-group-item list-group-item-action">
                                 <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="mb-1">Índice: [11+...) (Extremo)</h5>
-                                    <small class="text-muted">10/08/2021 às 13h:00:00</small>
+                                    <h5 class="mb-1">Temperatura</h5>
+                                    <p class="mb-1">Diária: @Model.PrevisaoDiaria.Temperatura.TempDiaria°C</p>
                                 </div>
-                                <p class="mb-1">Mensagem sobre índice UV.</p>
+                                <small>Máxima de @Model.PrevisaoDiaria.Temperatura.TempMax°C e Mínima de @Model.PrevisaoDiaria.Temperatura.TempMin°C</small>
                             </a>
-                            <a href="#" class="list-group-item list-group-item-action list-group-item-danger">
+                            <a href="#" class="list-group-item list-group-item-action">
                                 <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="mb-1">Índice: [8-11) (Muito Alto)</h5>
-                                    <small class="text-muted">10/08/2021 às 15h:00:00</small>
+                                    <h5 class="mb-1">Sensação Térmica</h5>
+                                    <p class="mb-1">Diária: @Model.PrevisaoDiaria.SensacaoTermica.SensDiaria°C</p>
                                 </div>
-                                <p class="mb-1">Mensagem sobre índice UV.</p>
+                                <div class="d-flex"><small>Manhã: @Model.PrevisaoDiaria.SensacaoTermica.SensManha°C</small></div>
+                                <div class="d-flex"><small>Entardecer: @Model.PrevisaoDiaria.SensacaoTermica.SensEntardecer°C</small></div>
+                                <div class="d-flex"><small>Noite: @Model.PrevisaoDiaria.SensacaoTermica.SensNoite°C</small></div>
                             </a>
-                            <a href="#" class="list-group-item list-group-item-action list-group-item-warning">
+                            @{
+                                <a href="#" class="list-group-item list-group-item-action">
+                                    @if (Model.PrevisaoDiaria.Condicoes != null)
+                                    {
+                                        @foreach (var condicao in Model.PrevisaoDiaria.Condicoes)
+                                        {
+                                            <div class="d-flex w-100 justify-content-between">
+                                                <h5 class="mb-1">Condição diária: @condicao.Detalhes</h5>
+                                                <small class="text-muted">@condicao.Icone</small>
+                                            </div>
+                                        }
+                                    }
+
+                                    @if (Model.PrevisaoDiaria.ProbPrecipitacao > 0.0f)
+                                    {
+                                        <div class="d-flex justify-content-between">
+                                            <small>Probabilidade de precipitação: @(Model.PrevisaoDiaria.ProbPrecipitacao * 100)%</small> <!-- Tratar esse valor -->
+                                            <small>Precipitação diária: @Model.PrevisaoDiaria.Precipitacao mm</small>
+                                        </div>
+                                    }
+                                    @if (Model.PrevisaoDiaria.Neve > 0.0f)
+                                    {
+                                        <small>Neve: @Model.PrevisaoDiaria.Neve mm</small>
+                                    }
+                                </a>
+                            }
+                            <a href="#" class="list-group-item list-group-item-action">
                                 <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="mb-1">Índice: [6-8) (Alto)</h5>
-                                    <small class="text-muted">10/08/2021 às 17h:00:00</small>
+                                    <h5 class="mb-1">Cobertura de Nuvens</h5>
+                                    <p class="mb-1">@Model.PrevisaoDiaria.CoberturaNuvem%</p>
                                 </div>
-                                <p class="mb-1">Mensagem sobre índice UV.</p>
                             </a>
-                            <a href="#" class="list-group-item list-group-item-action list-group-item-dark">
+                            <a href="#" class="list-group-item list-group-item-action">
                                 <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="mb-1">Índice: [3-6) (Moderado)</h5>
-                                    <small class="text-muted">10/08/2021 às 17h:00:00</small>
+                                    <h5 class="mb-1">Índice UV Diário</h5>
+                                    <p class="mb-1">@Model.PrevisaoDiaria.IndiceUV</p>
                                 </div>
-                                <p class="mb-1">Mensagem sobre índice UV.</p>
                             </a>
-                            <a href="#" class="list-group-item list-group-item-action list-group-item-light">
+                            <a href="#" class="list-group-item list-group-item-action">
                                 <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="mb-1">Índice: [0-3) (Baixo)</h5>
-                                    <small class="text-muted">10/08/2021 às 17h:00:00</small>
+                                    <h5 class="mb-1">Humidade Relativa</h5>
+                                    <p class="mb-1">@Model.PrevisaoDiaria.Humidade%</p>
                                 </div>
-                                <p class="mb-1">Mensagem sobre índice UV.</p>
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">Nascer do Sol</h5>
+                                    <small>@Model.PrevisaoDiaria.DataAmanhecer.ToString("t")</small>
+                                </div>
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">Por do Sol</h5>
+                                    <small>@Model.PrevisaoDiaria.DataEntardecer.ToString("t")</small>
+                                </div>
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">Pressão Atmosférica</h5>
+                                    <p class="mb-1">@Model.PrevisaoDiaria.Pressao hPa</p>
+                                </div>
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">Ponto de Orvalho</h5>
+                                    <p class="mb-1">@Model.PrevisaoDiaria.PontoOrvalho°C</p>
+                                </div>
                             </a>
                         </div>
                     </div>

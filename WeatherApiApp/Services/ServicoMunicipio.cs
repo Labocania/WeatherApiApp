@@ -47,8 +47,9 @@ namespace WeatherApiApp.Services
                 .Include(previsao => previsao.Condicoes)
                 .Include(previsao => previsao.Temperatura)
                 .Include(previsao => previsao.SensacaoTermica)
-                .Include(previsao => previsao.Alertas.Where(alerta => alerta != null))
-                .LastAsync();
+                .Include(previsao => previsao.Alertas)
+                .OrderByDescending(previsao => previsao.ID)
+                .FirstAsync();
         }
 
         public async Task<PrevisaoOpenUV> PegaPrevisaoUVAsync(int id)

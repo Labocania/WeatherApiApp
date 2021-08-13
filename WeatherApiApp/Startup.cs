@@ -39,7 +39,10 @@ namespace WeatherApiApp
             _connectionString = builder.ConnectionString;
 
             // Adicionando Entity Framework Core com SQL Server e Interação com serviços API.
-            services.AddDbContext<AppDbContext>(options => options.UseSqlServer(_connectionString));
+            // Configure split queries as the default for your application's context:
+            services.AddDbContext<AppDbContext>(options => options.UseSqlServer(
+                _connectionString,
+                o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery)));
 
             // Junta apiurl.json com classe ApiUrlBind para consumo em serviços.
             services.Configure<ApiUrlBind>(Configuration.GetSection("Url"));

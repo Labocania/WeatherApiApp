@@ -18,6 +18,8 @@ namespace WeatherApiApp.Pages
         [BindProperty]
         public ClimaAtualOpenW ClimaAtual { get; private set; }
         [BindProperty]
+        public PrevisaoDiariaOpenW PrevisaoDiaria { get; private set; }
+        [BindProperty]
         public Dictionary<string, int> Municipios { get; private set; }
 
         public IndexModel(ILogger<IndexModel> logger, ServicoMunicipio servicoMunicipio)
@@ -30,6 +32,7 @@ namespace WeatherApiApp.Pages
         public async Task<IActionResult> OnGetAsync(string nome = "Rio-Branco")
         {
             ClimaAtual = await _servicoMunicipio.PegaClimaAtualAsync(Municipios[nome]);
+            PrevisaoDiaria = await _servicoMunicipio.PegaPrevisaoWAsync(Municipios[nome]);
             return Page();
         }
     }
