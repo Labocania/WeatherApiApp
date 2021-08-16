@@ -52,21 +52,21 @@
                             </a>
                             @{
                                 <a href="#" class="list-group-item list-group-item-action">
-                               @if (Model.ClimaAtual.Condicoes != null)
-                                {
-                                   @foreach (var condicao in Model.ClimaAtual.Condicoes)
+                                    @if (Model.ClimaAtual.Condicoes != null)
                                     {
-                                        <div class="d-flex w-100 justify-content-between">
-                                            <h5 class="mb-1">Condição atual: @condicao.Detalhes</h5>
-                                            <small class="text-muted">@condicao.Icone</small>
-                                        </div>
+                                        @foreach (var condicao in Model.ClimaAtual.Condicoes)
+                                        {
+                                            <div class="d-flex w-100 justify-content-between">
+                                                <h5 class="mb-1">Condição atual: @condicao.Detalhes</h5>
+                                                <small class="text-muted">@condicao.Icone</small>
+                                            </div>
+                                        }
                                     }
-                                }
 
-                               @if (Model.ClimaAtual.Chuva != null)
-                                {
-                                    <small>Precipitação na última hora: @Model.ClimaAtual.Chuva.ChuvaUltimaHora mm</small>
-                                }
+                                    @if (Model.ClimaAtual.Chuva != null)
+                                    {
+                                        <small>Precipitação na última hora: @Model.ClimaAtual.Chuva.ChuvaUltimaHora mm</small>
+                                    }
                                 </a>
                             }
                             <a href="#" class="list-group-item list-group-item-action">
@@ -212,13 +212,23 @@
                                             <small>@alerta.Descricao</small>
                                             <small>Fonte: @alerta.AlertaFonte</small>
                                         }
-                                    }                                    
+                                    }
                                 </a>
                             }
                         </div>
                     </div>
                 </div>
             </div>
+            @{
+                string classeCss = Model.PrevisaoOpenUV.IndiceUV switch
+                {
+                    > 11f => "list-group-item-primary",
+                    >= 8f => "list-group-item-danger",
+                    >= 6 => "list-group-item-warning",
+                    >= 3 => "list-group-item-dark",
+                    _ => "list-group-item-light"
+                };
+            }
             <div class="tab-pane" id="open-uv" role="tabpanel" aria-labelledby="open-uv-tab">
                 <div class="list-group">
                     <a href="#" class="list-group-item list-group-item-action active" aria-current="true">

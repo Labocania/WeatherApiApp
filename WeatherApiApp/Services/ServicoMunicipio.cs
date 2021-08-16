@@ -54,7 +54,7 @@ namespace WeatherApiApp.Services
 
         public async Task<PrevisaoOpenUV> PegaPrevisaoUVAsync(int id)
         {
-            return await _context.PrevisoesOpenUV.Where(previsao => previsao.Municipio.ID == id).LastAsync();
+            return await _context.PrevisoesOpenUV.Where(previsao => previsao.Municipio.ID == id).OrderByDescending(previsao => previsao.ID).FirstAsync();
         }
     }
 }

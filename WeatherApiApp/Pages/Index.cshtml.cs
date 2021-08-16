@@ -19,6 +19,8 @@ namespace WeatherApiApp.Pages
         public ClimaAtualOpenW ClimaAtual { get; private set; }
         [BindProperty]
         public PrevisaoDiariaOpenW PrevisaoDiaria { get; private set; }
+        [BindProperty] 
+        public PrevisaoOpenUV PrevisaoOpenUV { get; private set; }
         [BindProperty]
         public Dictionary<string, int> Municipios { get; private set; }
 
@@ -33,6 +35,7 @@ namespace WeatherApiApp.Pages
         {
             ClimaAtual = await _servicoMunicipio.PegaClimaAtualAsync(Municipios[nome]);
             PrevisaoDiaria = await _servicoMunicipio.PegaPrevisaoWAsync(Municipios[nome]);
+            PrevisaoOpenUV = await _servicoMunicipio.PegaPrevisaoUVAsync(Municipios[nome]);
             return Page();
         }
     }
