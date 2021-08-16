@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using WeatherApiApp.Models;
 using WeatherApiApp.Services;
@@ -19,8 +17,8 @@ namespace WeatherApiApp.Pages
         public ClimaAtualOpenW ClimaAtual { get; private set; }
         [BindProperty]
         public PrevisaoDiariaOpenW PrevisaoDiaria { get; private set; }
-        [BindProperty] 
-        public List<PrevisaoOpenUV> PrevisaoOpenUV { get; private set; }
+        [BindProperty]
+        public List<ViewOpenUV> ViewOpenUV { get; private set; } = new List<ViewOpenUV>();
         [BindProperty]
         public Dictionary<string, int> Municipios { get; private set; }
 
@@ -35,7 +33,10 @@ namespace WeatherApiApp.Pages
         {
             ClimaAtual = await _servicoMunicipio.PegaClimaAtualAsync(Municipios[nome]);
             PrevisaoDiaria = await _servicoMunicipio.PegaPrevisaoWAsync(Municipios[nome]);
-            PrevisaoOpenUV = await _servicoMunicipio.PegaPrevisaoUVAsync(Municipios[nome]);
+            foreach (PrevisaoOpenUV item in await _servicoMunicipio.PegaPrevisaoUVAsync(Municipios[nome]))
+            {
+                ViewOpenUV.Add(new ViewOpenUV(item));
+            }
             return Page();
         }
     }

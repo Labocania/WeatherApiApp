@@ -224,36 +224,18 @@
                     <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
                         <div class="d-flex w-100 justify-content-between">
                             <h5 class="mb-1">Índice UV Diário</h5>
-                            <small>@Model.PrevisaoOpenUV.First().Horario.ToShortDateString()</small>
+                            <small>@Model.ViewOpenUV.First().HorarioDia()</small>
                         </div>
                     </a>
                     @{
-                        foreach (var uv in Model.PrevisaoOpenUV)
-                        {
-                            string classeCss = uv.IndiceUV switch
-                            {
-                                > 11f => "list-group-item-primary",
-                                >= 8f => "list-group-item-danger",
-                                >= 6 => "list-group-item-warning",
-                                >= 3 => "list-group-item-dark",
-                                _ => "list-group-item-light"
-                            };
-
-                            string mensagem = uv.IndiceUV switch
-                            {
-                                > 11f => "Extremo",
-                                >= 8f => "Muito alto",
-                                >= 6 => "Alto",
-                                >= 3 => "Moderado",
-                                _ => "Baixo"
-                            };
-
-                            <a href="#" id="open-uv-item" class="list-group-item list-group-item-action @classeCss">
+                        foreach (var uv in Model.ViewOpenUV)
+                        {              
+                            <a href="#" id="open-uv-item" class="list-group-item list-group-item-action @uv.MensagemCorUV().classe">
                                 <div class="d-flex w-100 justify-content-between">
-                                    <h5 id="open-uv-index" class="mb-1">@uv.IndiceUV</h5>
-                                    <small class="text-muted">@uv.Horario.ToShortTimeString()</small>
+                                    <h5 id="open-uv-index" class="mb-1">@uv.UV()</h5>
+                                    <small class="text-muted">@uv.Horario()</small>
                                 </div>
-                                <p class="mb-1">@mensagem</p>
+                                <p class="mb-1">@uv.MensagemCorUV().mensagem</p>
                             </a>
                         }
                     }
