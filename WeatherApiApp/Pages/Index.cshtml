@@ -6,8 +6,8 @@
 
 <h2>Selecione uma capital!</h2>
 
-<div class="row justify-content-md-center">
-    <div class="col-sm-2" style="overflow-y:scroll">
+<div class="row justify-content-start" style="height: 40em;">
+    <div class="col-sm-2" style="overflow:auto; height: inherit;">
         @{
             foreach (var municipio in Model.Municipios)
             {
@@ -19,7 +19,7 @@
             }
         }
     </div>
-    <div class="col-sm-10 h-25">
+    <div class="col-sm-10" style="overflow: auto; height: inherit;">
         <ul class="nav nav-pills mb-3" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
                 <button class="nav-link active" id="open-weather-tab" data-bs-toggle="tab" data-bs-target="#open-weather" type="button" role="tab" aria-controls="open-weather" aria-selected="true">Open Weather Map</button>
@@ -41,73 +41,8 @@
 
         <div class="tab-content">
             <div class="tab-pane active" id="open-weather" role="tabpanel" aria-labelledby="open-weather-tab">
-                <div class="row justify-content-md-center">
-                    <div class="col-sm-6" style="overflow-y:scroll">
-                        <div class="list-group">
-                            <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="mb-1">Clima Atual</h5>
-                                    <small>@Model.ClimaAtual.DataPrevisao.ToString("g")</small>
-                                </div>
-                            </a>
-                            @{
-                                <a href="#" class="list-group-item list-group-item-action">
-                                    @if (Model.ClimaAtual.Condicoes != null)
-                                    {
-                                        @foreach (var condicao in Model.ClimaAtual.Condicoes)
-                                        {
-                                            <div class="d-flex w-100 justify-content-between">
-                                                <h5 class="mb-1">Condição atual: @condicao.Detalhes</h5>
-                                                <small class="text-muted">@condicao.Icone</small>
-                                            </div>
-                                        }
-                                    }
-
-                                    @if (Model.ClimaAtual.Chuva != null)
-                                    {
-                                        <small>Precipitação na última hora: @Model.ClimaAtual.Chuva.ChuvaUltimaHora mm</small>
-                                    }
-                                </a>
-                            }
-                            <a href="#" class="list-group-item list-group-item-action">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="mb-1">Sensação Térmica</h5>
-                                    <p class="mb-1">@Model.ClimaAtual.SensacaoTermica°C</p>
-                                </div>
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="mb-1">Humidade Relativa</h5>
-                                    <p class="mb-1">@Model.ClimaAtual.Humidade%</p>
-                                </div>
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="mb-1">Pressão Atmosférica</h5>
-                                    <p class="mb-1">@Model.ClimaAtual.Pressao hPa</p>
-                                </div>
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="mb-1">Ponto de Orvalho</h5>
-                                    <p class="mb-1">@Model.ClimaAtual.PontoOrvalho°C</p>
-                                </div>
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="mb-1">Índice UV</h5>
-                                    <p class="mb-1">@Model.ClimaAtual.IndiceUV</p>
-                                </div>
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="mb-1">Visibilidade</h5>
-                                    <p class="mb-1">@Model.ClimaAtual.Visibilidade m</p>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-sm-6" style="overflow-y:scroll">
+                <div class="row">
+                    <div class="col-sm-6">
                         <div class="list-group">
                             <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
                                 <div class="d-flex w-100 justify-content-between">
@@ -200,9 +135,9 @@
                                 </div>
                             </a>
                             @{
-                                <a href="#" class="list-group-item list-group-item-action">
-                                    @if (Model.PrevisaoDiaria.Alertas != null)
-                                    {
+                                @if (Model.PrevisaoDiaria.Alertas != null)
+                                {
+                                    <a href="#" class="list-group-item list-group-item-action">
                                         @foreach (var alerta in Model.PrevisaoDiaria.Alertas)
                                         {
                                             <div class="d-flex w-100 justify-content-between">
@@ -212,68 +147,119 @@
                                             <small>@alerta.Descricao</small>
                                             <small>Fonte: @alerta.AlertaFonte</small>
                                         }
+                                    </a>
+                                }
+                            }
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="list-group">
+                            <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">Clima Atual</h5>
+                                    <small>@Model.ClimaAtual.DataPrevisao.ToString("g")</small>
+                                </div>
+                            </a>
+                            @{
+                                <a href="#" class="list-group-item list-group-item-action">
+                                    @if (Model.ClimaAtual.Condicoes != null)
+                                    {
+                                        @foreach (var condicao in Model.ClimaAtual.Condicoes)
+                                        {
+                                            <div class="d-flex w-100 justify-content-between">
+                                                <h5 class="mb-1">Condição atual: @condicao.Detalhes</h5>
+                                                <small class="text-muted">@condicao.Icone</small>
+                                            </div>
+                                        }
+                                    }
+
+                                    @if (Model.ClimaAtual.Chuva != null)
+                                    {
+                                        <small>Precipitação na última hora: @Model.ClimaAtual.Chuva.ChuvaUltimaHora mm</small>
                                     }
                                 </a>
                             }
+                            <a href="#" class="list-group-item list-group-item-action">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">Sensação Térmica</h5>
+                                    <p class="mb-1">@Model.ClimaAtual.SensacaoTermica°C</p>
+                                </div>
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">Humidade Relativa</h5>
+                                    <p class="mb-1">@Model.ClimaAtual.Humidade%</p>
+                                </div>
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">Pressão Atmosférica</h5>
+                                    <p class="mb-1">@Model.ClimaAtual.Pressao hPa</p>
+                                </div>
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">Ponto de Orvalho</h5>
+                                    <p class="mb-1">@Model.ClimaAtual.PontoOrvalho°C</p>
+                                </div>
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">Índice UV</h5>
+                                    <p class="mb-1">@Model.ClimaAtual.IndiceUV</p>
+                                </div>
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">Visibilidade</h5>
+                                    <p class="mb-1">@Model.ClimaAtual.Visibilidade m</p>
+                                </div>
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
-            @{
-                string classeCss = Model.PrevisaoOpenUV.IndiceUV switch
-                {
-                    > 11f => "list-group-item-primary",
-                    >= 8f => "list-group-item-danger",
-                    >= 6 => "list-group-item-warning",
-                    >= 3 => "list-group-item-dark",
-                    _ => "list-group-item-light"
-                };
-            }
             <div class="tab-pane" id="open-uv" role="tabpanel" aria-labelledby="open-uv-tab">
                 <div class="list-group">
                     <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
-                        <div class="d-flex w-100 justify-content-center">
+                        <div class="d-flex w-100 justify-content-between">
                             <h5 class="mb-1">Índice UV Diário</h5>
+                            <small>@Model.PrevisaoOpenUV.First().Horario.ToShortDateString()</small>
                         </div>
                     </a>
-                    <a href="#" class="list-group-item list-group-item-action list-group-item-primary">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1">Índice: [11+...) (Extremo)</h5>
-                            <small class="text-muted">10/08/2021 às 13h:00:00</small>
-                        </div>
-                        <p class="mb-1">Mensagem sobre índice UV.</p>
-                    </a>
-                    <a href="#" class="list-group-item list-group-item-action list-group-item-danger">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1">Índice: [8-11) (Muito Alto)</h5>
-                            <small class="text-muted">10/08/2021 às 15h:00:00</small>
-                        </div>
-                        <p class="mb-1">Mensagem sobre índice UV.</p>
-                    </a>
-                    <a href="#" class="list-group-item list-group-item-action list-group-item-warning">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1">Índice: [6-8) (Alto)</h5>
-                            <small class="text-muted">10/08/2021 às 17h:00:00</small>
-                        </div>
-                        <p class="mb-1">Mensagem sobre índice UV.</p>
-                    </a>
-                    <a href="#" class="list-group-item list-group-item-action list-group-item-dark">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1">Índice: [3-6) (Moderado)</h5>
-                            <small class="text-muted">10/08/2021 às 17h:00:00</small>
-                        </div>
-                        <p class="mb-1">Mensagem sobre índice UV.</p>
-                    </a>
-                    <a href="#" class="list-group-item list-group-item-action list-group-item-light">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1">Índice: [0-3) (Baixo)</h5>
-                            <small class="text-muted">10/08/2021 às 17h:00:00</small>
-                        </div>
-                        <p class="mb-1">Mensagem sobre índice UV.</p>
-                    </a>
+                    @{
+                        foreach (var uv in Model.PrevisaoOpenUV)
+                        {
+                            string classeCss = uv.IndiceUV switch
+                            {
+                                > 11f => "list-group-item-primary",
+                                >= 8f => "list-group-item-danger",
+                                >= 6 => "list-group-item-warning",
+                                >= 3 => "list-group-item-dark",
+                                _ => "list-group-item-light"
+                            };
+
+                            string mensagem = uv.IndiceUV switch
+                            {
+                                > 11f => "Extremo",
+                                >= 8f => "Muito alto",
+                                >= 6 => "Alto",
+                                >= 3 => "Moderado",
+                                _ => "Baixo"
+                            };
+
+                            <a href="#" id="open-uv-item" class="list-group-item list-group-item-action @classeCss">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 id="open-uv-index" class="mb-1">@uv.IndiceUV</h5>
+                                    <small class="text-muted">@uv.Horario.ToShortTimeString()</small>
+                                </div>
+                                <p class="mb-1">@mensagem</p>
+                            </a>
+                        }
+                    }
                 </div>
             </div>
         </div>
     </div>
     </div>
-<div class="d-flex p-2 bd-highlight">I'm a flexbox container!</div>
+

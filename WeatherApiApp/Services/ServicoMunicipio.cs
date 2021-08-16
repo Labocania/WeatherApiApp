@@ -52,9 +52,9 @@ namespace WeatherApiApp.Services
                 .FirstAsync();
         }
 
-        public async Task<PrevisaoOpenUV> PegaPrevisaoUVAsync(int id)
+        public async Task<List<PrevisaoOpenUV>> PegaPrevisaoUVAsync(int id)
         {
-            return await _context.PrevisoesOpenUV.Where(previsao => previsao.Municipio.ID == id).OrderByDescending(previsao => previsao.ID).FirstAsync();
+            return await _context.PrevisoesOpenUV.Where(previsao => previsao.Municipio.ID == id && previsao.Horario.Day == DateTime.Now.Day).OrderBy(previsao => previsao.Horario).ToListAsync();
         }
     }
 }

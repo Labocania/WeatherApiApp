@@ -20,7 +20,7 @@ namespace WeatherApiApp.Pages
         [BindProperty]
         public PrevisaoDiariaOpenW PrevisaoDiaria { get; private set; }
         [BindProperty] 
-        public PrevisaoOpenUV PrevisaoOpenUV { get; private set; }
+        public List<PrevisaoOpenUV> PrevisaoOpenUV { get; private set; }
         [BindProperty]
         public Dictionary<string, int> Municipios { get; private set; }
 
