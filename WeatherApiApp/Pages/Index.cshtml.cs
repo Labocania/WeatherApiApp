@@ -26,7 +26,7 @@ namespace WeatherApiApp.Pages
         {
             _logger = logger;
             _servicoMunicipio = servicoMunicipio;
-            Municipios = servicoMunicipio.PegaSelecaoMunicipios();
+            Municipios = servicoMunicipio.PegaMunicipioNomeId();
         }
 
         public async Task<IActionResult> OnGetAsync(string nome = "Rio-Branco")
