@@ -1,0 +1,112 @@
+﻿@model WeatherApiApp.Models.PrevisaoDiariaOpenW
+@{
+}
+
+<div class="list-group">
+    <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
+        <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Previsão Diária</h5>
+            <small>@Model.DataPrevisao.ToString("g")</small>
+        </div>
+    </a>
+    <a href="#" class="list-group-item list-group-item-action">
+        <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Temperatura</h5>
+            <p class="mb-1">Diária: @Model.Temperatura.TempDiaria°C</p>
+        </div>
+        <small>Máxima de @Model.Temperatura.TempMax°C e Mínima de @Model.Temperatura.TempMin°C</small>
+    </a>
+    <a href="#" class="list-group-item list-group-item-action">
+        <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Sensação Térmica</h5>
+            <p class="mb-1">Diária: @Model.SensacaoTermica.SensDiaria°C</p>
+        </div>
+        <div class="d-flex"><small>Manhã: @Model.SensacaoTermica.SensManha°C</small></div>
+        <div class="d-flex"><small>Entardecer: @Model.SensacaoTermica.SensEntardecer°C</small></div>
+        <div class="d-flex"><small>Noite: @Model.SensacaoTermica.SensNoite°C</small></div>
+    </a>
+    @{
+        <a href="#" class="list-group-item list-group-item-action">
+            @if (Model.Condicoes != null)
+            {
+                @foreach (var condicao in Model.Condicoes)
+                {
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">Condição diária: @condicao.Detalhes</h5>
+                        <small class="text-muted">@condicao.Icone</small>
+                    </div>
+                }
+            }
+
+            @if (Model.ProbPrecipitacao > 0.0f)
+            {
+                <div class="d-flex justify-content-between">
+                    <small>Probabilidade de precipitação: @(Model.ProbPrecipitacao * 100)%</small> <!-- Tratar esse valor -->
+                    <small>Precipitação diária: @Model.Precipitacao mm</small>
+                </div>
+            }
+            @if (Model.Neve > 0.0f)
+            {
+                <small>Neve: @Model.Neve mm</small>
+            }
+        </a>
+    }
+    <a href="#" class="list-group-item list-group-item-action">
+        <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Cobertura de Nuvens</h5>
+            <p class="mb-1">@Model.CoberturaNuvem%</p>
+        </div>
+    </a>
+    <a href="#" class="list-group-item list-group-item-action">
+        <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Índice UV Diário</h5>
+            <p class="mb-1">@Model.IndiceUV</p>
+        </div>
+    </a>
+    <a href="#" class="list-group-item list-group-item-action">
+        <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Humidade Relativa</h5>
+            <p class="mb-1">@Model.Humidade%</p>
+        </div>
+    </a>
+    <a href="#" class="list-group-item list-group-item-action">
+        <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Nascer do Sol</h5>
+            <small>@Model.DataAmanhecer.ToString("t")</small>
+        </div>
+    </a>
+    <a href="#" class="list-group-item list-group-item-action">
+        <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Por do Sol</h5>
+            <small>@Model.DataEntardecer.ToString("t")</small>
+        </div>
+    </a>
+    <a href="#" class="list-group-item list-group-item-action">
+        <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Pressão Atmosférica</h5>
+            <p class="mb-1">@Model.Pressao hPa</p>
+        </div>
+    </a>
+    <a href="#" class="list-group-item list-group-item-action">
+        <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Ponto de Orvalho</h5>
+            <p class="mb-1">@Model.PontoOrvalho°C</p>
+        </div>
+    </a>
+    @{
+        @if (Model.Alertas.Count > 0)
+        {
+            <a href="#" class="list-group-item list-group-item-action">
+                @foreach (var alerta in Model.Alertas)
+                {
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">Alerta: @alerta.Evento</h5>
+                        <small class="text-muted">De @alerta.DataInicio.ToString("d") até @alerta.DataTermino.ToString("d")</small>
+                    </div>
+                    <small>@alerta.Descricao</small>
+                    <small>Fonte: @alerta.AlertaFonte</small>
+                }
+            </a>
+        }
+    }
+</div>

@@ -1,0 +1,24 @@
+﻿@model List<WeatherApiApp.Models.ViewOpenUV>
+@{
+}
+
+<div class="list-group">
+    <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
+        <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Índice UV Diário</h5>
+            <small>@Model.First().HorarioDia()</small>
+        </div>
+    </a>
+    @{
+        foreach (var uv in Model)
+        {
+            <a href="#" id="open-uv-item" class="list-group-item list-group-item-action @uv.MensagemCorUV().classe">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 id="open-uv-index" class="mb-1">@uv.UV()</h5>
+                    <small class="text-muted">@uv.Horario()</small>
+                </div>
+                <p class="mb-1">@uv.MensagemCorUV().mensagem</p>
+            </a>
+        }
+    }
+</div>
