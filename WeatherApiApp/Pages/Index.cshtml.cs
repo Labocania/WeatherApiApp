@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using WeatherApiApp.Models;
@@ -11,7 +10,6 @@ namespace WeatherApiApp.Pages
     public class IndexModel : PageModel
     {
         private readonly ServicoMunicipio _servicoMunicipio;
-        private readonly ILogger<IndexModel> _logger;
 
         [BindProperty]
         public ClimaAtualOpenW ClimaAtual { get; private set; }
@@ -22,9 +20,8 @@ namespace WeatherApiApp.Pages
         [BindProperty]
         public Dictionary<string, int> Municipios { get; private set; }
 
-        public IndexModel(ILogger<IndexModel> logger, ServicoMunicipio servicoMunicipio)
+        public IndexModel(ServicoMunicipio servicoMunicipio)
         {
-            _logger = logger;
             _servicoMunicipio = servicoMunicipio;
             Municipios = servicoMunicipio.PegaMunicipioNomeId();
         }

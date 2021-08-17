@@ -21,7 +21,7 @@ namespace WeatherApiApp.Services
 
         public Dictionary<string, int> PegaMunicipioNomeId()
         {
-            Dictionary<string, int> valores = new Dictionary<string, int>();
+            Dictionary<string, int> valores = new();
             foreach (Municipio municipio in Municipios)
             {
                 valores.Add(municipio.Nome.Replace(" ", "-"), municipio.ID);
