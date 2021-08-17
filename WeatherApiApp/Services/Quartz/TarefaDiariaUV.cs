@@ -2,14 +2,13 @@
 using Quartz;
 using System.Net.Http;
 using System.Threading.Tasks;
-using WeatherApiApp.Data;
 using WeatherApiApp.Models;
 
 namespace WeatherApiApp.Services.Quartz
 {
     public class TarefaDiariaUV : TarefaConsumeAPI
     {
-        public TarefaDiariaUV(ILogger<TarefaConsumeAPI> logger, AppDbContext appDb, Deserializer deserializer, ClienteOpenUV openUVCaller) : base(logger, appDb, deserializer)
+        public TarefaDiariaUV(ILogger<TarefaConsumeAPI> logger, ServicoMunicipio servicoMunicipio, Deserializer deserializer, ClienteOpenUV openUVCaller) : base(logger, servicoMunicipio, deserializer)
         {
             clienteApi = openUVCaller;
         }
@@ -33,7 +32,7 @@ namespace WeatherApiApp.Services.Quartz
             _logger.LogInformation("Adicionando PrevisaoOpenUV ao rastreamento.");
             foreach (PrevisaoOpenUV previsao in municipio.PrevisoesOpenUV)
             {
-                await _appDb.PrevisoesOpenUV.AddAsync(previsao);
+                await _sevicoMunicipio.Context.PrevisoesOpenUV.AddAsync(previsao);
             }
             _logger.LogInformation($"PrevisaoOpenUV adicionada!");
         }

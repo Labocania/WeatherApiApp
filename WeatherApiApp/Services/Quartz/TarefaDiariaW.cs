@@ -1,14 +1,13 @@
 ﻿using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using WeatherApiApp.Data;
 using WeatherApiApp.Models;
 
 namespace WeatherApiApp.Services.Quartz
 {
     public class TarefaDiariaW : TarefaConsumeAPI
     {
-        public TarefaDiariaW(ILogger<TarefaConsumeAPI> logger, AppDbContext appDb, Deserializer deserializer, ClienteOpenWeather openWCaller) : base(logger, appDb, deserializer)
+        public TarefaDiariaW(ILogger<TarefaConsumeAPI> logger, ServicoMunicipio servicoMunicipio, Deserializer deserializer, ClienteOpenWeather openWCaller) : base(logger, servicoMunicipio, deserializer)
         {
             clienteApi = openWCaller;
         }
@@ -23,7 +22,7 @@ namespace WeatherApiApp.Services.Quartz
             _logger.LogInformation("Adicionando PrevisaoDiariaOpenW ao rastreamento.");
             foreach (PrevisaoDiariaOpenW previsao in municipio.PrevisoesDiariasOpenW)
             {
-                await _appDb.PrevisoesDiariasOpenW.AddAsync(previsao);
+                await _sevicoMunicipio.Context.PrevisoesDiariasOpenW.AddAsync(previsao);
             }
             _logger.LogInformation($"PrevisaoDiariaOpenW adicionada!");
         }
