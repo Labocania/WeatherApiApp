@@ -33,7 +33,7 @@
                 {
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="mb-1">Condição diária: @condicao.Detalhes</h5>
-                        <small class="text-muted">@condicao.Icone</small>
+                        <img src=@($"~/images/{condicao.Icone}.png") alt="@condicao.Detalhes" asp-append-version="true" />
                     </div>
                 }
             }
