@@ -49,6 +49,19 @@ namespace WeatherApiApp.Services
                 .FirstAsync();
         }
 
+        public async Task<List<PrevisaoDiariaOpenW>> PegaHistoricoWAsync(int id)
+        {
+            DateTime cincoDiasAtras = DateTime.Today.AddDays(-5);
+
+            return await Context.PrevisoesDiariasOpenW.Where(previsao => previsao.Municipio.ID == id && previsao.DataPrevisao.CompareTo(cincoDiasAtras) > 0)
+                .Include(previsao => previsao.Condicoes)
+                .Include(previsao => previsao.Temperatura)
+                .Include(previsao => previsao.SensacaoTermica)
+                .Include(previsao => previsao.Alertas)
+                .OrderBy(previsao => previsao.ID)
+                .ToListAsync();
+        }
+
         public async Task<List<PrevisaoOpenUV>> PegaPrevisaoUVAsync(int id)
         {
             IQueryable<PrevisaoOpenUV> query = Context.PrevisoesOpenUV.Where(previsao => previsao.Municipio.ID == id && previsao.Horario.Day == DateTime.Now.Day);

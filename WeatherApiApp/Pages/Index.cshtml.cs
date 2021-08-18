@@ -16,6 +16,8 @@ namespace WeatherApiApp.Pages
         [BindProperty]
         public PrevisaoDiariaOpenW PrevisaoDiaria { get; private set; }
         [BindProperty]
+        public List<PrevisaoDiariaOpenW> HistoricoDiarioW { get; private set; }
+        [BindProperty]
         public List<ViewOpenUV> ViewOpenUV { get; private set; } = new List<ViewOpenUV>();
         [BindProperty]
         public Dictionary<string, int> Municipios { get; private set; }
@@ -34,6 +36,7 @@ namespace WeatherApiApp.Pages
             {
                 ViewOpenUV.Add(new ViewOpenUV(item));
             }
+            HistoricoDiarioW = await _servicoMunicipio.PegaHistoricoWAsync(Municipios[nome]);
             return Page();
         }
     }

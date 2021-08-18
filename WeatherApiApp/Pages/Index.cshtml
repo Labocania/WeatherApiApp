@@ -11,7 +11,7 @@
     </div>
 </div>
 
-<div class="row" style="height: 30em;">
+<div class="row" style="height: 80em;">
     <div class="col-sm-2" style="overflow:auto; height: inherit;">
         <h5>Selecione uma capital:</h5>
         @{
@@ -55,6 +55,25 @@
                         <partial name="_ClimaWPartial" for="ClimaAtual" />
                     </div>
                 </div>
+                <div class="row border-top border-left border-3 border-dark" style="height: inherit; overflow: auto;">
+                    @{
+                        if (Model.HistoricoDiarioW.Count == 0)
+                        {
+                            <h3 style="text-align: center;">Histórico indisponível.</h3>
+                        }
+                        else
+                        {
+                            <h4 style="text-align: center;">Histórico diário</h4>
+                            @foreach (var historico in Model.HistoricoDiarioW)
+                            {
+                                <div class="col-sm-3" style="height: inherit;">
+                                    <partial name="_DiariaWPartial" for="@historico" />
+                                </div>
+                            }
+                        }
+                    }
+                </div>
+
             </div>
             <div class="tab-pane" id="open-uv" role="tabpanel" aria-labelledby="open-uv-tab">
                 <div class="row justify-content-start">
@@ -67,12 +86,4 @@
     </div>
 </div>
 
-<div class="row" style="height: 30em;">
-    <div class="col-sm-6" style="height: inherit; overflow: auto;">
-
-    </div>
-    <div class="col-sm-6" style="height: inherit; overflow: auto;">
-
-    </div>
-</div>
 
