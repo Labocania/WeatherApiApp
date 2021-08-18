@@ -17,7 +17,7 @@
                 {
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="mb-1">Condição atual: @condicao.Detalhes</h5>
-                        <small class="text-muted">@condicao.Icone</small>
+                        <img src=@($"~/images/{condicao.Icone}.png") alt="@condicao.Icone" asp-append-version="true" />
                     </div>
                 }
             }

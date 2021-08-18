@@ -10834,4 +10834,15 @@ textarea.form-control-lg {
   }
 }
 
+.background-text-clip {
+    background: blue url('/images/Background-title.jpg');
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    font-size: 4.5rem;
+    font-family: Liberation Sans;
+    padding-left: 90px;
+    padding-right: 90px;
+}
+
 /*# sourceMappingURL=bootstrap.css.map */
