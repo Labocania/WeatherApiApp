@@ -29,7 +29,7 @@ namespace WeatherApiApp.Services.Quartz
             _logger.LogInformation("Adicionando WeatherBit ao rastreamento.");
             foreach (WeatherBit previsao in municipio.WeatherBits)
             {
-                await _sevicoMunicipio.Context.WeatherBits.AddAsync(previsao);
+                await _sevicoMunicipio.Context.WeatherBit.AddAsync(previsao);
             }
             _logger.LogInformation($"WeatherBit adicionada!");
         }

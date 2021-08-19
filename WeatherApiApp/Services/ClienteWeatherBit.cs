@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
+using System.Globalization;
 using System.Net.Http;
 using System.Threading.Tasks;
 using WeatherApiApp.Models;
@@ -35,7 +36,7 @@ namespace WeatherApiApp.Services
 
         public string CriaUrl(float latitude, float longitude, float altitude = 0, string exlcuir = "")
         {
-            return $"current?lat={latitude}&lon={longitude}&lang=pt&key={_config["WeatherBitKey"]}";
+            return $"current?lat={latitude.ToString("0.00", CultureInfo.InvariantCulture)}&lon={longitude.ToString("0.00", CultureInfo.InvariantCulture)}&lang=pt&key={_config["WeatherBitKey"]}";
         }
     }
 }
