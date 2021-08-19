@@ -65,6 +65,13 @@ namespace WeatherApiApp
                         TimeSpan.FromMilliseconds(500),
                         TimeSpan.FromSeconds(1)
                     }));
+            services.AddHttpClient<ClienteWeatherBit>()
+                .AddTransientHttpErrorPolicy(policy =>
+                    policy.WaitAndRetryAsync(new[] { 
+                        TimeSpan.FromMilliseconds(200),
+                        TimeSpan.FromMilliseconds(500),
+                        TimeSpan.FromSeconds(1)
+                    }));
 
             // Registra Quartz na injeção de dependência.
             services.AddQuartz(q =>
@@ -73,6 +80,7 @@ namespace WeatherApiApp
                 q.AddJobAndTrigger<TarefaDiariaUV>(Configuration);
                 q.AddJobAndTrigger<TarefaDiariaW>(Configuration);
                 q.AddJobAndTrigger<TarefaClimaAtual>(Configuration);
+                q.AddJobAndTrigger<TarefaClimaWeatherBit>(Configuration);
             }); 
             // Adiciona Quartz.NET IHostedService que executa agendamentos.
             services.AddQuartzHostedService(q => q.WaitForJobsToComplete = true);

@@ -1,6 +1,7 @@
 {
   "Url": {
     "BaseOpenUVUrl": "https://api.openuv.io/api/v1/",
-    "BaseOpenWUrl": "https://api.openweathermap.org/data/2.5/"
+    "BaseOpenWUrl": "https://api.openweathermap.org/data/2.5/",
+    "BaseWeatherBitUrl": "https://api.weatherbit.io/v2.0/"
   }
 }

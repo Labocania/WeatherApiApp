@@ -84,6 +84,26 @@ namespace WeatherApiApp.Services
             }
             return clima;
         }
+
+        public WeatherBit ConverterWeatherBit(string respostaJson)
+        {
+            ConverterResultados(respostaJson);
+            WeatherBit weatherBit = new WeatherBit();
+            using (RespostaTotalObjeto)
+            {
+                _opcoes = new(JsonSerializerDefaults.Web)
+                {
+                    Converters =
+                    {
+                        new UnixEpochDateTimeConverter(RespostaTotalObjeto.RootElement.GetProperty("data")[0].GetProperty("timezone").GetString())
+                    }
+                };
+
+                weatherBit = RespostaTotalObjeto.RootElement.GetProperty("data")[0].ToObject<WeatherBit>(_opcoes);
+            }
+
+            return weatherBit;
+        }
     }
 
     // Credits: https://stackoverflow.com/a/59047063 User: https://stackoverflow.com/users/3744182/dbc
