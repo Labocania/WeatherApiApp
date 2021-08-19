@@ -50,7 +50,7 @@
 
         <div class="tab-content">
             <div class="tab-pane active" id="open-weather" role="tabpanel" aria-labelledby="open-weather-tab">
-                <div class="row">
+                <div class="row" style="padding-bottom: 5px;">
                     <div class="col-sm-6">
                         <partial name="_DiariaWPartial" for="PrevisaoDiaria" />
                     </div>
@@ -58,7 +58,7 @@
                         <partial name="_ClimaWPartial" for="ClimaAtual" />
                     </div>
                 </div>
-                <div class="row border-top border-left border-3 border-dark" style="height: inherit; overflow: auto;">
+                <div class="row" style="height: inherit; overflow: auto;">
                     @{
                         if (Model.HistoricoDiarioW.Count == 0)
                         {
