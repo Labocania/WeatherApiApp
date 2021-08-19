@@ -14,6 +14,8 @@ namespace WeatherApiApp.Pages
         [BindProperty]
         public ClimaAtualOpenW ClimaAtual { get; private set; }
         [BindProperty]
+        public WeatherBit ClimaBit { get; private set; }
+        [BindProperty]
         public PrevisaoDiariaOpenW PrevisaoDiaria { get; private set; }
         [BindProperty]
         public List<PrevisaoDiariaOpenW> HistoricoDiarioW { get; private set; }
@@ -37,6 +39,7 @@ namespace WeatherApiApp.Pages
                 ViewOpenUV.Add(new ViewOpenUV(item));
             }
             HistoricoDiarioW = await _servicoMunicipio.PegaHistoricoWAsync(Municipios[nome]);
+            ClimaBit = await _servicoMunicipio.PegaClimaBitAsync(Municipios[nome]);
             return Page();
         }
     }

@@ -72,5 +72,12 @@ namespace WeatherApiApp.Services
 
             return await query.OrderBy(previsao => previsao.Horario).ToListAsync();
         }
+
+        public async Task<WeatherBit> PegaClimaBitAsync(int id)
+        {
+            return await Context.WeatherBit.Where(clima => clima.Municipio.ID == id)
+                        .OrderByDescending(clima => clima.ID)
+                        .FirstAsync();
+        }
     }
 }

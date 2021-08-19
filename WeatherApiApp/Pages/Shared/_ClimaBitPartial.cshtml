@@ -1,0 +1,65 @@
+﻿@model WeatherApiApp.Models.WeatherBit
+@{
+}
+<div class="list-group">
+    <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
+        <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Clima Atual</h5>
+            <small>@Model.DataPrevisao.ToString("g")</small>
+        </div>
+    </a>
+    <a href="#" class="list-group-item list-group-item-action">
+        <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Temperatura</h5>
+            <p class="mb-1">@Model.Temperatura°C</p>
+        </div>
+    </a>
+    <a href="#" class="list-group-item list-group-item-action">
+        <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Sensação Térmica</h5>
+            <p class="mb-1">@Model.SensacaoTermica°C</p>
+        </div>
+    </a>
+    <a href="#" class="list-group-item list-group-item-action">
+        <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Cobertura de Nuvens</h5>
+            <p class="mb-1">@Model.CoberturaNuvem%</p>
+        </div>
+    </a>
+    <a href="#" class="list-group-item list-group-item-action">
+        <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Visibilidade</h5>
+            <p class="mb-1">@Model.Visibilidade Km</p>
+        </div>
+    </a>
+    <a href="#" class="list-group-item list-group-item-action">
+        <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Precipitação</h5>
+            <p class="mb-1">@Model.Precipitacao mm</p>
+        </div>
+    </a>
+    <a href="#" class="list-group-item list-group-item-action">
+        <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Índice UV Diário</h5>
+            <p class="mb-1">@Model.IndiceUV.ToString("0.00")</p>
+        </div>
+    </a>
+    <a href="#" class="list-group-item list-group-item-action">
+        <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Humidade Relativa</h5>
+            <p class="mb-1">@Model.Humidade%</p>
+        </div>
+    </a>
+    <a href="#" class="list-group-item list-group-item-action">
+        <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Ponto de Orvalho</h5>
+            <p class="mb-1">@Model.PontoOrvalho°C</p>
+        </div>
+    </a>
+    <a href="#" class="list-group-item list-group-item-action">
+        <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Qualidade do Ar</h5>
+            <p class="mb-1">@Model.QualidadeAr</p>
+        </div>
+    </a>
+</div>

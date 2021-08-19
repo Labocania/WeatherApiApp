@@ -33,6 +33,9 @@
             <li class="nav-item" role="presentation">
                 <button class="nav-link" id="open-uv-tab" data-bs-toggle="tab" data-bs-target="#open-uv" type="button" role="tab" aria-controls="open-uv" aria-selected="false">Open UV</button>
             </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="weatherbit-tab" data-bs-toggle="tab" data-bs-target="#weatherbit" type="button" role="tab" aria-controls="weatherbit" aria-selected="false">Weather Bit</button>
+            </li>
         </ul>
 
         <!-- Template
@@ -79,6 +82,13 @@
                 <div class="row justify-content-start">
                     <div class="col-sm-10">
                         <partial name="_DiariaUVPartial" for="ViewOpenUV" />
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="weatherbit" role="tabpanel" aria-labelledby="weatherbit-tab">
+                <div class="row justify-content-start">
+                    <div class="col-sm-10">
+                        <partial name="_ClimaBitPartial" for="ClimaBit" />
                     </div>
                 </div>
             </div>
