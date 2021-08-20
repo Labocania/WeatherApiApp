@@ -52,10 +52,28 @@
             <div class="tab-pane active" id="open-weather" role="tabpanel" aria-labelledby="open-weather-tab">
                 <div class="row" style="padding-bottom: 5px;">
                     <div class="col-sm-6">
-                        <partial name="_DiariaWPartial" for="PrevisaoDiaria" />
+                        @{
+                            if (Model.PrevisaoDiaria == null)
+                            {
+                                <h3 style="text-align: center;">Previsão indisponível.</h3>
+                            }
+                            else
+                            {
+                                <partial name="_DiariaWPartial" for="PrevisaoDiaria" />
+                            }
+                        }
                     </div>
                     <div class="col-sm-6">
-                        <partial name="_ClimaWPartial" for="ClimaAtual" />
+                        @{
+                            if (Model.ClimaAtual == null)
+                            {
+                                <h3 style="text-align: center;">Previsão indisponível.</h3>
+                            }
+                            else
+                            {
+                                <partial name="_ClimaWPartial" for="ClimaAtual" />
+                            }
+                        }
                     </div>
                 </div>
                 <div class="row" style="height: inherit; overflow: auto;">
@@ -81,14 +99,32 @@
             <div class="tab-pane" id="open-uv" role="tabpanel" aria-labelledby="open-uv-tab">
                 <div class="row justify-content-start">
                     <div class="col-sm-10">
-                        <partial name="_DiariaUVPartial" for="ViewOpenUV" />
+                        @{
+                            if (Model.ViewOpenUV.Count == 0)
+                            {
+                                <h3 style="text-align: center;">Previsão indisponível.</h3>
+                            }
+                            else
+                            {
+                                <partial name="_DiariaUVPartial" for="ViewOpenUV" />
+                            }
+                        }
                     </div>
                 </div>
             </div>
             <div class="tab-pane" id="weatherbit" role="tabpanel" aria-labelledby="weatherbit-tab">
                 <div class="row justify-content-start">
                     <div class="col-sm-10">
-                        <partial name="_ClimaBitPartial" for="ClimaBit" />
+                        @{
+                            if (Model.ClimaBit == null)
+                            {
+                                <h3 style="text-align: center;">Previsão indisponível.</h3>
+                            }
+                            else
+                            {
+                                <partial name="_ClimaBitPartial" for="ClimaBit" />
+                            }
+                        }
                     </div>
                 </div>
             </div>
