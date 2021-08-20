@@ -21,6 +21,8 @@ namespace WeatherApiApp.Data
 
         public DbSet<Temperatura> Temperaturas { get; set; }
 
+        public DbSet<Chuva> Chuva { get; set; }
+
         public DbSet<WeatherBit> WeatherBit { get; set; }
     }
 }
