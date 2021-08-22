@@ -35,7 +35,7 @@ namespace WeatherApiApp.Services
                 .Include(clima => clima.Condicoes)
                 .Include(clima => clima.Chuva)
                 .OrderByDescending(clima => clima.ID)
-                .FirstAsync();
+                .FirstOrDefaultAsync();
         }
 
         public async Task<PrevisaoDiariaOpenW> PegaPrevisaoWAsync(int id)
@@ -46,7 +46,7 @@ namespace WeatherApiApp.Services
                 .Include(previsao => previsao.SensacaoTermica)
                 .Include(previsao => previsao.Alertas)
                 .OrderByDescending(previsao => previsao.ID)
-                .FirstAsync();
+                .FirstOrDefaultAsync();
         }
 
         public async Task<List<PrevisaoDiariaOpenW>> PegaHistoricoWAsync(int id)
@@ -77,7 +77,7 @@ namespace WeatherApiApp.Services
         {
             return await Context.WeatherBit.Where(clima => clima.Municipio.ID == id)
                         .OrderByDescending(clima => clima.ID)
-                        .FirstAsync();
+                        .FirstOrDefaultAsync();
         }
     }
 }
