@@ -12,9 +12,6 @@
       "commandName": "IISExpress",
       "launchBrowser": true,
       "environmentVariables": {
-        "WeatherBitKey": "\"024c32a0dcc547eabead60b52afa0dad\"",
-        "OpenWKey": "\"9a149198695b196affdf883dde26865c\"",
-        "OpenUVKey": "\"27bde31a9538d6a39b44255e33805eaf\"",
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
@@ -22,9 +19,6 @@
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
-        "WeatherBitKey": "\"024c32a0dcc547eabead60b52afa0dad\"",
-        "OpenWKey": "\"9a149198695b196affdf883dde26865c\"",
-        "OpenUVKey": "\"27bde31a9538d6a39b44255e33805eaf\"",
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "dotnetRunMessages": "true",
