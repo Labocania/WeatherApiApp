@@ -10839,9 +10839,8 @@ textarea.form-control-lg {
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
-    font-size: 4.5rem;
     font-family: Liberation Sans;
-    padding-left: 90px;
+    padding-left: 150px;
     padding-right: 90px;
 }
 

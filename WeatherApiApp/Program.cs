@@ -44,8 +44,8 @@ namespace WeatherApiApp
         public static void AddAppConfiguration(HostBuilderContext hostingContext, IConfigurationBuilder config)
         {
             config.Sources.Clear();
-            config.AddJsonFile("appsettings.json", optional: true);
-            config.AddJsonFile("apiurls.json", optional: true, reloadOnChange: true);
+            config.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+            config.AddJsonFile("apiurls.json", optional: false, reloadOnChange: true);
             config.AddEnvironmentVariables();
             config.AddUserSecrets<Startup>();
         }
