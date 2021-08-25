@@ -2,49 +2,49 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WeatherApiApp.Data;
 
 namespace WeatherApiApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20210803191207_AdicionaFusoEmMunicipios")]
-    partial class AdicionaFusoEmMunicipios
+    [Migration("20210825191815_RemovendoUltimaMod")]
+    partial class RemovendoUltimaMod
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.8")
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("Relational:MaxIdentifierLength", 63)
+                .HasAnnotation("ProductVersion", "5.0.9")
+                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
             modelBuilder.Entity("WeatherApiApp.Models.Alerta", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<string>("AlertaFonte")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("DataInicio")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<DateTime>("DataTermino")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Descricao")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Evento")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<int?>("PrevisaoOpenWID")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.HasKey("ID");
 
@@ -53,24 +53,45 @@ namespace WeatherApiApp.Migrations
                     b.ToTable("Alertas");
                 });
 
+            modelBuilder.Entity("WeatherApiApp.Models.Chuva", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<float>("ChuvaUltimaHora")
+                        .HasColumnType("real");
+
+                    b.Property<int>("ClimaAtualOpenWId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("ClimaAtualOpenWId")
+                        .IsUnique();
+
+                    b.ToTable("Chuva");
+                });
+
             modelBuilder.Entity("WeatherApiApp.Models.ClimaAtualOpenW", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<float>("CoberturaNuvem")
                         .HasColumnType("real");
 
                     b.Property<DateTime>("DataAmanhecer")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<DateTime>("DataEntardecer")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<DateTime>("DataPrevisao")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<float>("Humidade")
                         .HasColumnType("real");
@@ -79,7 +100,7 @@ namespace WeatherApiApp.Migrations
                         .HasColumnType("real");
 
                     b.Property<int?>("MunicipioID")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<float>("PontoOrvalho")
                         .HasColumnType("real");
@@ -104,23 +125,23 @@ namespace WeatherApiApp.Migrations
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<int?>("ClimaAtualOpenWID")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("Detalhes")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Icone")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<int?>("PrevisaoOpenWID")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("Principal")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("ID");
 
@@ -135,17 +156,17 @@ namespace WeatherApiApp.Migrations
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<float>("Altitude")
                         .HasColumnType("real");
 
                     b.Property<string>("FusoIana")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("FusoWin")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<float>("Latitude")
                         .HasColumnType("real");
@@ -154,12 +175,7 @@ namespace WeatherApiApp.Migrations
                         .HasColumnType("real");
 
                     b.Property<string>("Nome")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<byte[]>("UltimaModificacao")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("rowversion");
+                        .HasColumnType("text");
 
                     b.HasKey("ID");
 
@@ -170,20 +186,20 @@ namespace WeatherApiApp.Migrations
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<float>("CoberturaNuvem")
                         .HasColumnType("real");
 
                     b.Property<DateTime>("DataAmanhecer")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<DateTime>("DataEntardecer")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<DateTime>("DataPrevisao")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<float>("FaseLunar")
                         .HasColumnType("real");
@@ -195,7 +211,7 @@ namespace WeatherApiApp.Migrations
                         .HasColumnType("real");
 
                     b.Property<int?>("MunicipioID")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<float>("Neve")
                         .HasColumnType("real");
@@ -223,17 +239,17 @@ namespace WeatherApiApp.Migrations
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<DateTime>("Horario")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<float>("IndiceUV")
                         .HasColumnType("real");
 
                     b.Property<int?>("MunicipioID")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.HasKey("ID");
 
@@ -246,11 +262,11 @@ namespace WeatherApiApp.Migrations
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<int>("PrevisaoOpenWId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<float>("SensDiaria")
                         .HasColumnType("real");
@@ -276,11 +292,11 @@ namespace WeatherApiApp.Migrations
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<int>("PrevisaoOpenWId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<float>("TempDiaria")
                         .HasColumnType("real");
@@ -308,6 +324,53 @@ namespace WeatherApiApp.Migrations
                     b.ToTable("Temperaturas");
                 });
 
+            modelBuilder.Entity("WeatherApiApp.Models.WeatherBit", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<float>("CoberturaNuvem")
+                        .HasColumnType("real");
+
+                    b.Property<DateTime>("DataPrevisao")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<float>("Humidade")
+                        .HasColumnType("real");
+
+                    b.Property<float>("IndiceUV")
+                        .HasColumnType("real");
+
+                    b.Property<int?>("MunicipioID")
+                        .HasColumnType("integer");
+
+                    b.Property<float>("PontoOrvalho")
+                        .HasColumnType("real");
+
+                    b.Property<float>("Precipitacao")
+                        .HasColumnType("real");
+
+                    b.Property<float>("QualidadeAr")
+                        .HasColumnType("real");
+
+                    b.Property<float>("SensacaoTermica")
+                        .HasColumnType("real");
+
+                    b.Property<float>("Temperatura")
+                        .HasColumnType("real");
+
+                    b.Property<float>("Visibilidade")
+                        .HasColumnType("real");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("MunicipioID");
+
+                    b.ToTable("WeatherBit");
+                });
+
             modelBuilder.Entity("WeatherApiApp.Models.Alerta", b =>
                 {
                     b.HasOne("WeatherApiApp.Models.PrevisaoDiariaOpenW", "PrevisaoOpenW")
@@ -315,6 +378,17 @@ namespace WeatherApiApp.Migrations
                         .HasForeignKey("PrevisaoOpenWID");
 
                     b.Navigation("PrevisaoOpenW");
+                });
+
+            modelBuilder.Entity("WeatherApiApp.Models.Chuva", b =>
+                {
+                    b.HasOne("WeatherApiApp.Models.ClimaAtualOpenW", "ClimaAtualOpenW")
+                        .WithOne("Chuva")
+                        .HasForeignKey("WeatherApiApp.Models.Chuva", "ClimaAtualOpenWId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ClimaAtualOpenW");
                 });
 
             modelBuilder.Entity("WeatherApiApp.Models.ClimaAtualOpenW", b =>
@@ -381,8 +455,19 @@ namespace WeatherApiApp.Migrations
                     b.Navigation("PrevisaoOpenW");
                 });
 
+            modelBuilder.Entity("WeatherApiApp.Models.WeatherBit", b =>
+                {
+                    b.HasOne("WeatherApiApp.Models.Municipio", "Municipio")
+                        .WithMany("WeatherBits")
+                        .HasForeignKey("MunicipioID");
+
+                    b.Navigation("Municipio");
+                });
+
             modelBuilder.Entity("WeatherApiApp.Models.ClimaAtualOpenW", b =>
                 {
+                    b.Navigation("Chuva");
+
                     b.Navigation("Condicoes");
                 });
 
@@ -393,6 +478,8 @@ namespace WeatherApiApp.Migrations
                     b.Navigation("PrevisoesDiariasOpenW");
 
                     b.Navigation("PrevisoesOpenUV");
+
+                    b.Navigation("WeatherBits");
                 });
 
             modelBuilder.Entity("WeatherApiApp.Models.PrevisaoDiariaOpenW", b =>

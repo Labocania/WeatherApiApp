@@ -7,7 +7,7 @@ namespace WeatherApiApp.Data
     {
         public AppDbContext(DbContextOptions<AppDbContext> options): base(options) { }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-            => optionsBuilder.UseNpgsql("Server=127.0.0.1;Port=5432;Database=WeatherApiDb;User Id=postgre;Password=praise4DaSun!");
+            => optionsBuilder.UseNpgsql("Server=127.0.0.1;Port=5432;Database=WeatherApiDb;User Id=postgres;Password=praise4DaSun!");
 
         public DbSet<Municipio> Municipios { get; set; }
         public DbSet<PrevisaoOpenUV> PrevisoesOpenUV { get; set; }
@@ -27,19 +27,5 @@ namespace WeatherApiApp.Data
         public DbSet<Chuva> Chuva { get; set; }
 
         public DbSet<WeatherBit> WeatherBit { get; set; }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.HasSequence<long>("Municipios");
-            modelBuilder.HasSequence<long>("PrevisoesOpenUV");
-            modelBuilder.HasSequence<long>("PrevisoesDiariasOpenW");
-            modelBuilder.HasSequence<long>("ClimasAtuaisOpenW");
-            modelBuilder.HasSequence<long>("Condicoes");
-            modelBuilder.HasSequence<long>("Alertas");
-            modelBuilder.HasSequence<long>("Sensacoes");
-            modelBuilder.HasSequence<long>("Temperaturas");
-            modelBuilder.HasSequence<long>("Chuva");
-            modelBuilder.HasSequence<long>("WeatherBit");
-        }
     }
 }

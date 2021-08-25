@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace WeatherApiApp.Models
 {
@@ -12,9 +11,6 @@ namespace WeatherApiApp.Models
         public float Altitude { get; set; }
         public string FusoIana { get; set; }
         public string FusoWin { get; set; }
-
-        [Timestamp]
-        public byte[] UltimaModificacao { get; set; }
 
         public ICollection<PrevisaoOpenUV> PrevisoesOpenUV { get; set; }
         public ICollection<PrevisaoDiariaOpenW> PrevisoesDiariasOpenW { get; set; }
