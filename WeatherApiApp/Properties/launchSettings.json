@@ -19,7 +19,11 @@
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "WeatherBitKey": "024c32a0dcc547eabead60b52afa0dad",
+        "OpenWKey": "9a149198695b196affdf883dde26865c",
+        "OpenUVKey": "27bde31a9538d6a39b44255e33805eaf",
+        "ASPNETCORE_ENVIRONMENT": "Production",
+        "DATABASE_URL": "postgres://vdrihjpccvylbs:26667bac1bc97144e6c91b67bf008674f798e9827042263946c92c74a2452709@ec2-52-203-74-38.compute-1.amazonaws.com:5432/d61kpecngtm36v"
       },
       "dotnetRunMessages": "true",
       "applicationUrl": "https://localhost:5001;http://localhost:5000"

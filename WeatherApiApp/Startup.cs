@@ -17,14 +17,13 @@ namespace WeatherApiApp
 {
     public class Startup
     {
-        //private string _connectionString = null;
-
-        public Startup(IConfiguration configuration)
+        public IConfiguration Configuration { get; }
+        public IWebHostEnvironment Environment { get; }
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
-        }
-
-        public IConfiguration Configuration { get; }
+            Environment = env;
+        }  
 
         // This method gets called by the runtime. Use this method to add services to the container.
         // * TODO: LIMPAR ESSE MÉTODO! *
@@ -34,9 +33,7 @@ namespace WeatherApiApp
 
             // Adicionando Entity Framework Core com PostgreSQL e Interação com serviços API.
             // Configure split queries as the default for your application's context:
-            services.AddDbContext<AppDbContext>(options => options.UseNpgsql(
-                Configuration.GetConnectionString("DefaultConnection"),
-                o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery)));
+            services.AddDbProvider(Environment, Configuration);
 
             // Junta apiurl.json com classe ApiUrlBind para consumo em serviços.
             services.Configure<ApiUrlBind>(Configuration.GetSection("Url"));

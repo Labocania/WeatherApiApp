@@ -46,8 +46,16 @@ namespace WeatherApiApp
             config.Sources.Clear();
             config.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
             config.AddJsonFile("apiurls.json", optional: false, reloadOnChange: true);
-            config.AddEnvironmentVariables();
-            config.AddUserSecrets<Startup>();
+
+            if (hostingContext.HostingEnvironment.IsDevelopment())
+            {
+                config.AddUserSecrets<Startup>();
+            }
+
+            if (hostingContext.HostingEnvironment.IsProduction())
+            {
+                config.AddEnvironmentVariables();
+            }
         }
     }
 }
