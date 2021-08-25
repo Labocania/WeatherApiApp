@@ -17,7 +17,7 @@ namespace WeatherApiApp
 {
     public class Startup
     {
-        private string _connectionString = null;
+        //private string _connectionString = null;
 
         public Startup(IConfiguration configuration)
         {
@@ -33,15 +33,15 @@ namespace WeatherApiApp
             services.AddRazorPages();
 
             // Criando texto de conexão ao extrair de segredos.
-            var builder = new Microsoft.Data.SqlClient.SqlConnectionStringBuilder(
-                Configuration.GetConnectionString("DefaultConnection"));
+            //var builder = new Microsoft.Data.SqlClient.SqlConnectionStringBuilder(
+                //Configuration.GetConnectionString("DefaultConnection"));
                 //builder.Password = Configuration["DbPassword"];
-            _connectionString = builder.ConnectionString;
+            //_connectionString = builder.ConnectionString;
 
             // Adicionando Entity Framework Core com SQL Server e Interação com serviços API.
             // Configure split queries as the default for your application's context:
-            services.AddDbContext<AppDbContext>(options => options.UseSqlServer(
-                _connectionString,
+            services.AddDbContext<AppDbContext>(options => options.UseNpgsql(
+                "AppDbContext",
                 o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery)));
 
             // Junta apiurl.json com classe ApiUrlBind para consumo em serviços.
