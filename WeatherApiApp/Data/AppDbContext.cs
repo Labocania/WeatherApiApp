@@ -6,9 +6,6 @@ namespace WeatherApiApp.Data
     public class AppDbContext : DbContext
     {
         public AppDbContext(DbContextOptions<AppDbContext> options): base(options) { }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-            => optionsBuilder.UseNpgsql("Server=127.0.0.1;Port=5432;Database=WeatherApiDb;User Id=postgres;Password=praise4DaSun!");
-
         public DbSet<Municipio> Municipios { get; set; }
         public DbSet<PrevisaoOpenUV> PrevisoesOpenUV { get; set; }
 
