@@ -32,7 +32,7 @@ namespace WeatherApiApp
         {
             services.AddRazorPages();
 
-            // Adicionando Entity Framework Core com SQL Server e Interação com serviços API.
+            // Adicionando Entity Framework Core com PostgreSQL e Interação com serviços API.
             // Configure split queries as the default for your application's context:
             services.AddDbContext<AppDbContext>(options => options.UseNpgsql(
                 Configuration.GetConnectionString("DefaultConnection"),
