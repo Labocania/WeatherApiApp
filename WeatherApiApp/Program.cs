@@ -33,13 +33,21 @@ namespace WeatherApiApp
             host.Run();
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
+        public static IHostBuilder CreateHostBuilder(string[] args)
+        {
+            if (!int.TryParse(Environment.GetEnvironmentVariable("PORT"), out var port))
+            { 
+                port = 5000; 
+            }
+
+            return Host.CreateDefaultBuilder(args)
                 .ConfigureAppConfiguration(AddAppConfiguration)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                    webBuilder.UseKestrel(options => options.Listen(System.Net.IPAddress.Any, port));
                 });
+        }
 
         public static void AddAppConfiguration(HostBuilderContext hostingContext, IConfigurationBuilder config)
         {
