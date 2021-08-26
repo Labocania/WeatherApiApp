@@ -28,7 +28,7 @@ namespace WeatherApiApp.Services.Quartz
         protected override async Task Tarefa(Municipio municipio)
         {
             _logger.LogInformation("Chamando OpenUV API e convertendo a resposta.");
-            municipio.PrevisoesOpenUV = _deserializer.ConverterOpenUV(municipio.FusoWin, await clienteApi.ChamarApiAsync(municipio));
+            municipio.PrevisoesOpenUV = _deserializer.ConverterOpenUV(municipio, await clienteApi.ChamarApiAsync(municipio));
             _logger.LogInformation("Adicionando PrevisaoOpenUV ao rastreamento.");
             foreach (PrevisaoOpenUV previsao in municipio.PrevisoesOpenUV)
             {

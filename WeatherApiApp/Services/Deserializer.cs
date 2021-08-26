@@ -15,7 +15,7 @@ namespace WeatherApiApp.Services
             RespostaTotalObjeto = JsonDocument.Parse(respostaTexto);
         }
 
-        public IList<PrevisaoOpenUV> ConverterOpenUV(string fusoHorario, string respostaJson)
+        public IList<PrevisaoOpenUV> ConverterOpenUV(Municipio municipio, string respostaJson)
         {
             ConverterResultados(respostaJson);
             IList<PrevisaoOpenUV> previsao = new List<PrevisaoOpenUV>();
@@ -25,7 +25,7 @@ namespace WeatherApiApp.Services
                 {
                     Converters =
                     {
-                        new ConversorFusoHorario(fusoHorario)
+                        new ConversorFusoHorario((municipio.FusoWin, municipio.FusoIana))
                     }
                 };
 
