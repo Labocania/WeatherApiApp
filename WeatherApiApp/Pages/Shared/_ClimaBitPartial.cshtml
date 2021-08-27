@@ -59,7 +59,19 @@
     <a href="#" class="list-group-item list-group-item-action">
         <div class="d-flex w-100 justify-content-between">
             <h5 class="mb-1">Qualidade do Ar</h5>
-            <p class="mb-1">@Model.QualidadeAr</p>
+            @{ 
+                string _mensagem = Model.QualidadeAr switch
+                {
+                    >= 301f => "Perigoso",
+                    >= 201f => "Muito insalubre",
+                    >= 151f => "Insalubre",
+                    >= 101f => "Ruim",
+                    >= 51f => "Razoável",
+                    >= 0f => "Excelente",
+                    _ => "Erro"
+                };
+            }
+            <p class="mb-1">@_mensagem</p>
         </div>
     </a>
 </div>
