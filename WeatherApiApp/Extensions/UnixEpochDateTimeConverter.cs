@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using TimeZoneConverter;
@@ -13,8 +14,11 @@ namespace WeatherApiApp.Extensions
 
         public override DateTime Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            return TimeZoneInfo.ConvertTime(DateTime.UnixEpoch.AddSeconds(reader.GetInt64()), 
-                TimeZoneInfo.FindSystemTimeZoneById(TZConvert.IanaToWindows(_timeZone)));
+            TimeZoneInfo fuso = TimeZoneInfo.GetSystemTimeZones().Any(x => x.Id == _timeZone)
+                ? TimeZoneInfo.FindSystemTimeZoneById(_timeZone)
+                : TimeZoneInfo.FindSystemTimeZoneById(TZConvert.IanaToWindows(_timeZone));
+
+            return TimeZoneInfo.ConvertTime(DateTime.UnixEpoch.AddSeconds(reader.GetInt64()), fuso);
         }
 
         public override void Write(Utf8JsonWriter writer, DateTime value, JsonSerializerOptions options)
