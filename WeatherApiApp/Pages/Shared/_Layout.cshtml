@@ -7,25 +7,18 @@
     <link rel="stylesheet" href="~/lib/twitter-bootstrap/css/bootstrap.css" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">Agregador Climático</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Principal</a>
-                        </li>
-                    </ul>
+    <header class="border-bottom">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white box-shadow mb-3">
+            <div class="container justify-content-center">
+                <div class="col-sm-6">
+                    <h1 class="background-text-clip">
+                        <b>Agregador Climático</b>
+                    </h1>
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container-fluid">
+    <div class="container-fluid" style="background-color: #fbfbfb; padding-top: 1rem;">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
