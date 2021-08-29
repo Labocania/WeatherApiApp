@@ -108,6 +108,8 @@ namespace WeatherApiApp
 
             app.UseAuthorization();
 
+            System.Globalization.CultureInfo.DefaultThreadCurrentUICulture = new System.Globalization.CultureInfo("pt-BR");
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
