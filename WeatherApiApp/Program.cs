@@ -45,7 +45,6 @@ namespace WeatherApiApp
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                    webBuilder.UseKestrel(options => options.Listen(System.Net.IPAddress.Any, port));
                 });
         }
 
