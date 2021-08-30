@@ -9,7 +9,6 @@ using System;
 using WeatherApiApp.Services;
 using WeatherApiApp.Extensions;
 using WeatherApiApp.Services.Quartz;
-using Microsoft.AspNetCore.HttpOverrides;
 
 namespace WeatherApiApp
 {
@@ -24,17 +23,10 @@ namespace WeatherApiApp
         }  
 
         // This method gets called by the runtime. Use this method to add services to the container.
+        // * TODO: LIMPAR ESSE MÉTODO! *
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
-            services.AddHttpsRedirection(options => { options.HttpsPort = 443; });
-            services.Configure<ForwardedHeadersOptions>(options =>
-            {
-                options.ForwardedHeaders = ForwardedHeaders.XForwardedFor |
-                                           ForwardedHeaders.XForwardedProto;
-                options.KnownNetworks.Clear();
-                options.KnownProxies.Clear();
-            });
 
             // Adicionando Entity Framework Core com PostgreSQL e Interação com serviços API.
             // Configure split queries as the default for your application's context:
@@ -106,7 +98,6 @@ namespace WeatherApiApp
                 app.UseHsts();
             }
 
-            app.UseForwardedHeaders();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
