@@ -106,6 +106,7 @@ namespace WeatherApiApp
                 app.UseHsts();
             }
 
+            app.UseForwardedHeaders();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
