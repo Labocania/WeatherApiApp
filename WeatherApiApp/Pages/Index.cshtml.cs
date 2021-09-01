@@ -12,7 +12,7 @@ namespace WeatherApiApp.Pages
         private readonly ServicoMunicipio _servicoMunicipio;
 
         [BindProperty]
-        public PrevisaoHoraOpenW ClimaAtual { get; private set; }
+        public PrevisaoHoraOpenW PrevisaoHora { get; private set; }
         [BindProperty]
         public WeatherBit ClimaBit { get; private set; }
         [BindProperty]
@@ -32,7 +32,7 @@ namespace WeatherApiApp.Pages
 
         public async Task<IActionResult> OnGetAsync(string nome = "Rio-Branco")
         {
-            ClimaAtual = await _servicoMunicipio.PegaClimaAtualAsync(Municipios[nome]);
+            PrevisaoHora = await _servicoMunicipio.PegaPrevisaoHoraAsync(Municipios[nome]);
             PrevisaoDiaria = await _servicoMunicipio.PegaPrevisaoWAsync(Municipios[nome]);
             foreach (PrevisaoOpenUV item in await _servicoMunicipio.PegaPrevisaoUVAsync(Municipios[nome]))
             {
