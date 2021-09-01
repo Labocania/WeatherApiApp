@@ -5,7 +5,7 @@ using WeatherApiApp.Models;
 
 namespace Testes
 {
-    public class UnitTest1
+    public class DeserializerTests
     {
         private Deserializer deserializer = new();
         [Fact]
