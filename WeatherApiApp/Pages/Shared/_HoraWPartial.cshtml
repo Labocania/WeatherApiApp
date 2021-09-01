@@ -5,7 +5,7 @@
 <div class="list-group">
     <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
         <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1">Clima Atual</h5>
+            <h5 class="mb-1">Previsão para próxima hora</h5>
             <small>@Model.DataPrevisao.ToString("g")</small>
         </div>
     </a>
@@ -30,8 +30,18 @@
     }
     <a href="#" class="list-group-item list-group-item-action">
         <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1">Sensação Térmica</h5>
-            <p class="mb-1">@Model.SensacaoTermica°C</p>
+            <h5 class="mb-1">Temperatura</h5>
+            <p class="mb-1">@Model.Temperatura°C</p>
+        </div>
+        <div class="d-flex w-100 justify-content-between">
+            <small>Sensação Térmica</small>
+            <small>@Model.SensacaoTermica°C</small>
+        </div>
+    </a>
+    <a href="#" class="list-group-item list-group-item-action">
+        <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Probabilidade de Chuva</h5>
+            <p class="mb-1">@Model.ProbPrecipitacao%</p>
         </div>
     </a>
     <a href="#" class="list-group-item list-group-item-action">
