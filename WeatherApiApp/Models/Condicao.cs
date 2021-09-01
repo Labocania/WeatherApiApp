@@ -11,7 +11,7 @@ namespace WeatherApiApp.Models
         [JsonIgnore]
         public PrevisaoDiariaOpenW PrevisaoOpenW { get; set; }
         [JsonIgnore]
-        public ClimaAtualOpenW ClimaAtualOpenW { get; set; }
+        public PrevisaoHoraOpenW ClimaAtualOpenW { get; set; }
 
         [JsonPropertyName("main")]
         public string Principal { get; set; }

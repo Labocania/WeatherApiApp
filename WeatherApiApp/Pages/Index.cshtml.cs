@@ -12,7 +12,7 @@ namespace WeatherApiApp.Pages
         private readonly ServicoMunicipio _servicoMunicipio;
 
         [BindProperty]
-        public ClimaAtualOpenW ClimaAtual { get; private set; }
+        public PrevisaoHoraOpenW ClimaAtual { get; private set; }
         [BindProperty]
         public WeatherBit ClimaBit { get; private set; }
         [BindProperty]

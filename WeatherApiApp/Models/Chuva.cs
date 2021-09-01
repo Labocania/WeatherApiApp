@@ -11,7 +11,7 @@ namespace WeatherApiApp.Models
         [JsonIgnore]
         public int ClimaAtualOpenWId { get; set; }
         [JsonIgnore]
-        public ClimaAtualOpenW ClimaAtualOpenW { get; set; }
+        public PrevisaoHoraOpenW ClimaAtualOpenW { get; set; }
 
         [JsonPropertyName("1h")]
         public float ChuvaUltimaHora { get; set; }

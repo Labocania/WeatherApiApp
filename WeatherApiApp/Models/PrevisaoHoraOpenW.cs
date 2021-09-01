@@ -6,7 +6,7 @@ using System.Text.Json.Serialization;
 namespace WeatherApiApp.Models
 {
     [DataContract]
-    public class ClimaAtualOpenW
+    public class PrevisaoHoraOpenW
     {
         [JsonIgnore]
         public int ID { get; set; }

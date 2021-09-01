@@ -29,7 +29,7 @@ namespace WeatherApiApp.Services
             return valores;
         }
 
-        public async Task<ClimaAtualOpenW> PegaClimaAtualAsync(int id)
+        public async Task<PrevisaoHoraOpenW> PegaClimaAtualAsync(int id)
         {
             return await Context.ClimasAtuaisOpenW.Where(clima => clima.Municipio.ID == id)
                 .Include(clima => clima.Condicoes)

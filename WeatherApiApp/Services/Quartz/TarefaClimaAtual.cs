@@ -15,12 +15,12 @@ namespace WeatherApiApp.Services.Quartz
         protected override async Task Tarefa(Municipio municipio)
         {
             _logger.LogInformation("Chamando OpenWeather API e convertendo a resposta.");
-            municipio.ClimasAtuaisOpenW = new List<ClimaAtualOpenW>
+            municipio.ClimasAtuaisOpenW = new List<PrevisaoHoraOpenW>
             {
                 _deserializer.ConverterClimaAtual(await clienteApi.ChamarApiAsync(municipio, "minutely,hourly,daily,alerts"))
             };
             _logger.LogInformation("Adicionando ClimaAtualOpenW ao rastreamento.");
-            foreach (ClimaAtualOpenW clima in municipio.ClimasAtuaisOpenW)
+            foreach (PrevisaoHoraOpenW clima in municipio.ClimasAtuaisOpenW)
             {
                 await _sevicoMunicipio.Context.ClimasAtuaisOpenW.AddAsync(clima);
             }

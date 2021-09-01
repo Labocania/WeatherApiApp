@@ -66,10 +66,10 @@ namespace WeatherApiApp.Services
             return previsao;
         }
 
-        public ClimaAtualOpenW ConverterClimaAtual(string respostaJson)
+        public PrevisaoHoraOpenW ConverterClimaAtual(string respostaJson)
         {
             ConverterResultados(respostaJson);
-            ClimaAtualOpenW clima = new ClimaAtualOpenW();
+            PrevisaoHoraOpenW clima = new PrevisaoHoraOpenW();
             using (RespostaTotalObjeto)
             {
                 _opcoes = new(JsonSerializerDefaults.Web)
@@ -80,7 +80,7 @@ namespace WeatherApiApp.Services
                     }
                 };
 
-                clima = RespostaTotalObjeto.RootElement.GetProperty("current").ToObject<ClimaAtualOpenW>(_opcoes);
+                clima = RespostaTotalObjeto.RootElement.GetProperty("current").ToObject<PrevisaoHoraOpenW>(_opcoes);
             }
             return clima;
         }
