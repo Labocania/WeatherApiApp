@@ -80,7 +80,7 @@ namespace WeatherApiApp.Services
                     }
                 };
 
-                clima = RespostaTotalObjeto.RootElement.GetProperty("current").ToObject<PrevisaoHoraOpenW>(_opcoes);
+                clima = RespostaTotalObjeto.RootElement.GetProperty("hourly")[1].ToObject<PrevisaoHoraOpenW>(_opcoes);
             }
             return clima;
         }
