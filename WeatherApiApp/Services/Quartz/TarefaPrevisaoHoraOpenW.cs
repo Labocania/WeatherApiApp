@@ -17,14 +17,14 @@ namespace WeatherApiApp.Services.Quartz
             _logger.LogInformation("Chamando OpenWeather API e convertendo a resposta.");
             municipio.ClimasAtuaisOpenW = new List<PrevisaoHoraOpenW>
             {
-                _deserializer.ConverterClimaAtual(await clienteApi.ChamarApiAsync(municipio, "minutely,hourly,daily,alerts"))
+                _deserializer.ConverterClimaAtual(await clienteApi.ChamarApiAsync(municipio, "current,minutely,daily,alerts"))
             };
-            _logger.LogInformation("Adicionando ClimaAtualOpenW ao rastreamento.");
+            _logger.LogInformation("Adicionando PrevisaoHoraOpenW ao rastreamento.");
             foreach (PrevisaoHoraOpenW clima in municipio.ClimasAtuaisOpenW)
             {
                 await _sevicoMunicipio.Context.ClimasAtuaisOpenW.AddAsync(clima);
             }
-            _logger.LogInformation($"ClimaAtualOpenW adicionado!");
+            _logger.LogInformation($"PrevisaoHoraOpenW adicionado!");
         }
     }
 }
