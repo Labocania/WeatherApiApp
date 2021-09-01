@@ -6,7 +6,7 @@ using System.Text.Json.Serialization;
 namespace WeatherApiApp.Models
 {
     [DataContract]
-    public class ClimaAtualOpenW
+    public class PrevisaoHoraOpenW
     {
         [JsonIgnore]
         public int ID { get; set; }
@@ -23,13 +23,8 @@ namespace WeatherApiApp.Models
         [DataType(DataType.Date)]
         public System.DateTime DataPrevisao { get; set; }
 
-        [JsonPropertyName("sunrise")]
-        [DataType(DataType.Date)]
-        public System.DateTime DataAmanhecer { get; set; }
-
-        [JsonPropertyName("sunset")]
-        [DataType(DataType.Date)]
-        public System.DateTime DataEntardecer { get; set; }
+        [JsonPropertyName("temp")]
+        public float Temperatura { get; set; }
 
         [JsonPropertyName("feels_like")]
         public float SensacaoTermica { get; set; }
@@ -51,5 +46,8 @@ namespace WeatherApiApp.Models
 
         [JsonPropertyName("visibility")]
         public float Visibilidade { get; set; }
+
+        [JsonPropertyName("pop")]
+        public float ProbPrecipitacao { get; set; }
     }
 }

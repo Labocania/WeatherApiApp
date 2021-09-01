@@ -59,13 +59,13 @@
                     </div>
                     <div class="col-sm-6">
                         @{
-                            if (Model.ClimaAtual == null)
+                            if (Model.PrevisaoHora == null)
                             {
                                 <h3 style="text-align: center;">Previsão indisponível.</h3>
                             }
                             else
                             {
-                                <partial name="_ClimaWPartial" for="ClimaAtual" />
+                                <partial name="_HoraWPartial" for="PrevisaoHora" />
                             }
                         }
                     </div>
