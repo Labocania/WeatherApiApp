@@ -1,4 +1,5 @@
 using Xunit;
+using FluentAssertions;
 using WeatherApiApp.Services;
 using WeatherApiApp.Models;
 
@@ -8,14 +9,11 @@ namespace Testes
     {
         private Deserializer deserializer = new();
         [Fact]
-        public void ClimaAtualOpenWSucesso()
+        public void PrevisaoHoraWSucesso()
         {
-            ClimaAtualOpenW clima = new();
-            clima = deserializer.ConverterClimaAtual(ClimaAtualWCorreto.dailyW);
-            Assert.NotNull(clima);
-            Assert.Equal(ClimaAtualWCorreto.previsao.DataPrevisao, clima.DataPrevisao);
-            Assert.Equal(ClimaAtualWCorreto.previsao.DataAmanhecer, clima.DataAmanhecer);
-            Assert.Equal(ClimaAtualWCorreto.previsao.DataEntardecer, clima.DataEntardecer);
+            PrevisaoHoraOpenW previsao = deserializer.ConverterClimaAtual(PrevisaoHoraWStub.json);
+            Assert.NotNull(previsao);
+            PrevisaoHoraWStub.previsao.Should().BeEquivalentTo(previsao);
         }
     }
 }
