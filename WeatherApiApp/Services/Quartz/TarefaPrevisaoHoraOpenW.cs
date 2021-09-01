@@ -5,9 +5,9 @@ using WeatherApiApp.Models;
 
 namespace WeatherApiApp.Services.Quartz
 {
-    public class TarefaClimaAtual : TarefaConsumeAPI
+    public class TarefaPrevisaoHoraOpenW : TarefaConsumeAPI
     {
-        public TarefaClimaAtual(ILogger<TarefaConsumeAPI> logger, ServicoMunicipio servicoMunicipio, Deserializer deserializer, ClienteOpenWeather openWCaller) : base(logger, servicoMunicipio, deserializer)
+        public TarefaPrevisaoHoraOpenW(ILogger<TarefaConsumeAPI> logger, ServicoMunicipio servicoMunicipio, Deserializer deserializer, ClienteOpenWeather openWCaller) : base(logger, servicoMunicipio, deserializer)
         {
             clienteApi = openWCaller;
         }
