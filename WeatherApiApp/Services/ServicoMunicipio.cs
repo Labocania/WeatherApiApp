@@ -16,7 +16,7 @@ namespace WeatherApiApp.Services
         public ServicoMunicipio(AppDbContext context)
         {
             Context = context;
-            Municipios = Context.Municipios.ToList();
+            Municipios = Context.Municipios.AsNoTracking().ToList();
         }
 
         public Dictionary<string, int> PegaMunicipioNomeId()
@@ -31,7 +31,9 @@ namespace WeatherApiApp.Services
 
         public async Task<PrevisaoHoraOpenW> PegaPrevisaoHoraAsync(int id)
         {
-            return await Context.ClimasAtuaisOpenW.Where(clima => clima.Municipio.ID == id)
+            return await Context.ClimasAtuaisOpenW
+                .AsNoTracking()
+                .Where(clima => clima.Municipio.ID == id)
                 .Include(clima => clima.Condicoes)
                 .Include(clima => clima.Chuva)
                 .OrderByDescending(clima => clima.ID)
@@ -40,7 +42,9 @@ namespace WeatherApiApp.Services
 
         public async Task<PrevisaoDiariaOpenW> PegaPrevisaoWAsync(int id)
         {
-            return await Context.PrevisoesDiariasOpenW.Where(previsao => previsao.Municipio.ID == id)
+            return await Context.PrevisoesDiariasOpenW
+                .AsNoTracking()
+                .Where(previsao => previsao.Municipio.ID == id)
                 .Include(previsao => previsao.Condicoes)
                 .Include(previsao => previsao.Temperatura)
                 .Include(previsao => previsao.SensacaoTermica)
@@ -53,7 +57,9 @@ namespace WeatherApiApp.Services
         {
             DateTime cincoDiasAtras = DateTime.Today.AddDays(-5);
 
-            return await Context.PrevisoesDiariasOpenW.Where(previsao => previsao.Municipio.ID == id && previsao.DataPrevisao.CompareTo(cincoDiasAtras) > 0)
+            return await Context.PrevisoesDiariasOpenW
+                .AsNoTracking()
+                .Where(previsao => previsao.Municipio.ID == id && previsao.DataPrevisao.CompareTo(cincoDiasAtras) > 0)
                 .Include(previsao => previsao.Condicoes)
                 .Include(previsao => previsao.Temperatura)
                 .Include(previsao => previsao.SensacaoTermica)
@@ -64,10 +70,10 @@ namespace WeatherApiApp.Services
 
         public async Task<List<PrevisaoOpenUV>> PegaPrevisaoUVAsync(int id)
         {
-            IQueryable<PrevisaoOpenUV> query = Context.PrevisoesOpenUV.Where(previsao => previsao.Municipio.ID == id && previsao.Horario.Day == DateTime.Now.Day);
+            IQueryable<PrevisaoOpenUV> query = Context.PrevisoesOpenUV.AsNoTracking().Where(previsao => previsao.Municipio.ID == id && previsao.Horario.Day == DateTime.Now.Day);
             if (!query.Any())
             {
-                query = Context.PrevisoesOpenUV.Where(previsao => previsao.Municipio.ID == id && previsao.Horario.Day == DateTime.Today.AddDays(-1.0).Day);
+                query = Context.PrevisoesOpenUV.AsNoTracking().Where(previsao => previsao.Municipio.ID == id && previsao.Horario.Day == DateTime.Today.AddDays(-1.0).Day);
             }
 
             return await query.OrderBy(previsao => previsao.Horario).ToListAsync();
@@ -75,9 +81,11 @@ namespace WeatherApiApp.Services
 
         public async Task<WeatherBit> PegaClimaBitAsync(int id)
         {
-            return await Context.WeatherBit.Where(clima => clima.Municipio.ID == id)
-                        .OrderByDescending(clima => clima.ID)
-                        .FirstOrDefaultAsync();
+            return await Context.WeatherBit
+                .AsNoTracking()
+                .Where(clima => clima.Municipio.ID == id)
+                .OrderByDescending(clima => clima.ID)
+                .FirstOrDefaultAsync();
         }
     }
 }
