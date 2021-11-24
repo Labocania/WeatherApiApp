@@ -14,7 +14,7 @@ namespace WeatherApiApp.Models
 
         public ICollection<PrevisaoOpenUV> PrevisoesOpenUV { get; set; }
         public ICollection<PrevisaoDiariaOpenW> PrevisoesDiariasOpenW { get; set; }
-        public ICollection<PrevisaoHoraOpenW> ClimasAtuaisOpenW { get; set; }
+        public ICollection<PrevisaoHoraOpenW> PrevisoesHoraOpenW { get; set; }
         public ICollection<WeatherBit> WeatherBits { get; set; }
     }
 }
